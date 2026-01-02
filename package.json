@@ -12,8 +12,7 @@
   ],
   "scripts": {
     "build": "vite build",
-    "example": "vite",
-    "prepublishOnly": "npm run build"
+    "example": "vite"
   },
   "dependencies": {
     "lit": "^3.2.1"

@@ -3,118 +3,682 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SlideVars Examples</title>
+    <title>SlideVars - Interactive CSS Variable Controls</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
-        padding: 3rem;
-        font-family: system-ui, sans-serif;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+      }
+
+      .hero {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+
+      .hero h1 {
+        margin: 0 0 1rem 0;
+        font-size: 3.5rem;
+        font-weight: 700;
+      }
+
+      .hero .emoji {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        margin: 0 0 2rem 0;
+        opacity: 0.95;
+      }
+
+      .hero .tagline {
+        font-size: 1rem;
+        opacity: 0.85;
+        max-width: 600px;
+        margin: 0 auto;
       }
 
       .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .section {
         background: white;
         padding: 3rem;
-        border-radius: 16px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        max-width: 600px;
-      }
-
-      h1 {
-        margin-top: 0;
-        color: #333;
-        font-size: 2.5rem;
-      }
-
-      .subtitle {
-        color: #666;
         margin-bottom: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       }
 
-      .examples {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+      .section h2 {
+        margin-top: 0;
+        color: #667eea;
+        font-size: 2rem;
       }
 
-      .example-link {
-        display: block;
-        padding: 1.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      .example-link:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-      }
-
-      .example-link strong {
-        display: block;
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .example-link span {
-        opacity: 0.9;
-        font-size: 0.95rem;
-      }
-
-      .note {
+      .section h3 {
+        color: #764ba2;
         margin-top: 2rem;
-        padding: 1rem;
-        background: #f5f5f5;
+      }
+
+      .demo-tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid #e9ecef;
+      }
+
+      .tab-button {
+        padding: 1rem 2rem;
+        background: none;
+        border: none;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #666;
+        transition: all 0.2s ease;
+        margin-bottom: -2px;
+      }
+
+      .tab-button:hover {
+        color: #667eea;
+      }
+
+      .tab-button.active {
+        color: #667eea;
+        border-bottom-color: #667eea;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .demo-area {
+        padding: 2rem;
+        background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
         border-radius: 8px;
-        font-size: 0.9rem;
+        margin: 2rem 0;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .demo-box {
+        width: var(--box-size, 150px);
+        height: var(--box-size, 150px);
+        background: var(--box-color, #764ba2);
+        border-radius: var(--border-radius, 20px);
+        transform: rotate(var(--rotation, 0deg));
+        box-shadow: 0 var(--shadow-size, 10px)
+          calc(var(--shadow-size, 10px) * 2) rgba(0, 0, 0, 0.3);
+        transition: all var(--animation-duration, 1s) ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .manual-demo {
+        width: var(--width, 100px);
+        height: var(--height, 100px);
+        background: var(--bg, #667eea);
+        border-radius: var(--radius, 0px);
+        transition: all 0.3s ease;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      pre {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        border-left: 4px solid #667eea;
+      }
+
+      code {
+        font-family: "Monaco", "Courier New", monospace;
+        font-size: 0.9em;
+      }
+
+      .code-block {
+        position: relative;
+      }
+
+      .copy-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: background 0.2s ease;
+      }
+
+      .copy-button:hover {
+        background: #5568d3;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .feature {
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .feature h3 {
+        margin: 0.5rem 0;
+        color: #667eea;
+      }
+
+      .feature p {
+        margin: 0;
         color: #666;
       }
 
-      .emoji {
-        font-size: 1.5rem;
-        margin-right: 0.5rem;
+      .callout {
+        background: #e7f3ff;
+        border-left: 4px solid #667eea;
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 4px;
+      }
+
+      .callout-success {
+        background: #d4edda;
+        border-left-color: #28a745;
+      }
+
+      .callout strong {
+        color: #667eea;
+      }
+
+      .callout-success strong {
+        color: #28a745;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+      }
+
+      th,
+      td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #667eea;
+      }
+
+      .install-command {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1.5rem;
+        border-radius: 8px;
+        font-family: "Monaco", "Courier New", monospace;
+        margin: 1rem 0;
+      }
+
+      .install-command code {
+        color: #4ec9b0;
+      }
+
+      footer {
+        background: #2d3748;
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        margin-top: 4rem;
+      }
+
+      footer a {
+        color: #667eea;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .section {
+          padding: 1.5rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1><span class="emoji">🎛️</span>SlideVars</h1>
-      <p class="subtitle">
-        Interactive UI controls for CSS custom properties
+    <div class="hero">
+      <span class="emoji">🎛️</span>
+      <h1>SlideVars</h1>
+      <p>Interactive UI controls for your CSS custom properties</p>
+      <p class="tagline">
+        Auto-detect CSS variables and create beautiful, reactive controls with
+        zero configuration
       </p>
-
-      <div class="examples">
-        <a href="/example-auto.html" class="example-link">
-          <strong>✨ Auto-Detection Example</strong>
-          <span
-            >Zero configuration - just call slideVars.init() and it figures
-            everything out!</span
-          >
-        </a>
-
-        <a href="/example.html" class="example-link">
-          <strong>⚙️ Manual Configuration Example</strong>
-          <span
-            >Full control with detailed configuration for each CSS
-            variable</span
-          >
-        </a>
-      </div>
-
-      <div class="note">
-        <strong>💡 Tip:</strong> Most projects should start with auto-detection
-        (example 1). Only use manual configuration when you need specific ranges
-        or behaviors.
-      </div>
     </div>
+
+    <div class="container">
+      <!-- Quick Start -->
+      <section class="section">
+        <h2>🚀 Quick Start</h2>
+        <p>Install via npm:</p>
+        <div class="install-command">
+          <code>npm install @codepen/slidevars</code>
+        </div>
+
+        <p>The simplest possible usage:</p>
+        <div class="code-block">
+          <pre><code>import { slideVars } from "@codepen/slidevars";
+
+slideVars.init(); // That's it!</code></pre>
+        </div>
+
+        <div class="callout callout-success">
+          <strong>✨ Zero Configuration!</strong> SlideVars automatically
+          detects all CSS variables from <code>:root</code> and creates
+          appropriate controls.
+        </div>
+      </section>
+
+      <!-- Live Demo -->
+      <section class="section">
+        <h2>🎨 Live Demo</h2>
+        <p>
+          <strong>Click the 🎛️ button in the top right</strong> to open the
+          controls and interact with the demos below!
+        </p>
+
+        <div class="demo-tabs">
+          <button class="tab-button active" data-tab="auto">
+            Auto-Detection
+          </button>
+          <button class="tab-button" data-tab="manual">
+            Manual Configuration
+          </button>
+        </div>
+
+        <!-- Auto Detection Tab -->
+        <div class="tab-content active" id="auto-tab">
+          <h3>Auto-Detection Example</h3>
+          <p>
+            Just define CSS variables in your stylesheet. SlideVars figures out
+            the rest:
+          </p>
+
+          <div class="demo-area">
+            <div class="demo-box" id="auto-demo">Auto!</div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>/* Your CSS */
+:root {
+  --box-size: 150px;
+  --box-color: #764ba2;
+  --border-radius: 20px;
+  --rotation: 0deg;
+  --shadow-size: 10px;
+  --animation-duration: 1s;
+}
+
+/* Your JavaScript */
+import { slideVars } from "@codepen/slidevars";
+slideVars.init(); // Auto-detects all variables!</code></pre>
+          </div>
+        </div>
+
+        <!-- Manual Configuration Tab -->
+        <div class="tab-content" id="manual-tab">
+          <h3>Manual Configuration Example</h3>
+          <p>
+            For more control, configure each variable manually with custom
+            ranges:
+          </p>
+
+          <div class="demo-area">
+            <div class="manual-demo" id="manual-demo">Manual</div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>slideVars.init({
+  "--width": {
+    type: "slider",
+    min: 50,
+    max: 400,
+    default: 100,
+    unit: "px",
+    scope: "#manual-demo"
+  },
+  "--height": {
+    type: "slider",
+    min: 50,
+    max: 400,
+    default: 100,
+    unit: "px",
+    scope: "#manual-demo"
+  },
+  "--bg": {
+    type: "color",
+    default: "#667eea",
+    scope: "#manual-demo"
+  },
+  "--radius": {
+    type: "slider",
+    min: 0,
+    max: 200,
+    default: 0,
+    unit: "px",
+    scope: "#manual-demo"
+  }
+});</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section class="section">
+        <h2>✨ Features</h2>
+        <div class="feature-grid">
+          <div class="feature">
+            <div class="feature-icon">🤖</div>
+            <h3>Auto-Detection</h3>
+            <p>Automatically discovers CSS variables and creates controls</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🎨</div>
+            <h3>Color Pickers</h3>
+            <p>Beautiful native color pickers for color variables</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🎚️</div>
+            <h3>Smart Sliders</h3>
+            <p>Intelligent ranges based on unit types (px, rem, %, etc.)</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <h3>Reactive</h3>
+            <p>Built with Lit for fast, efficient updates</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🎯</div>
+            <h3>Scoped</h3>
+            <p>Apply variables to specific elements or document-wide</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🪶</div>
+            <h3>Lightweight</h3>
+            <p>Small bundle size (~5KB Lit + minimal code)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Default Ranges -->
+      <section class="section">
+        <h2>📊 Default Slider Ranges</h2>
+        <p>Auto-detected sliders use these intelligent defaults:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Unit</th>
+              <th>Min</th>
+              <th>Max</th>
+              <th>Step</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>px</code></td>
+              <td>0</td>
+              <td>500</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td><code>rem</code>, <code>em</code></td>
+              <td>0</td>
+              <td>10</td>
+              <td>0.1</td>
+            </tr>
+            <tr>
+              <td><code>%</code>, <code>vw</code>, <code>vh</code></td>
+              <td>0</td>
+              <td>100</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td><code>deg</code></td>
+              <td>0</td>
+              <td>360</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td><code>s</code></td>
+              <td>0</td>
+              <td>10</td>
+              <td>0.1</td>
+            </tr>
+            <tr>
+              <td><code>ms</code></td>
+              <td>0</td>
+              <td>5000</td>
+              <td>50</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>💡 Smart Adaptation:</strong> Ranges automatically expand if
+          the current value is outside the defaults.
+        </div>
+      </section>
+
+      <!-- API Reference -->
+      <section class="section">
+        <h2>📖 API Reference</h2>
+
+        <h3><code>slideVars.init(config?, options?)</code></h3>
+        <p>Initialize the component with optional configuration.</p>
+
+        <h4>Options:</h4>
+        <ul>
+          <li>
+            <code>defaultOpen</code>: boolean - Whether controls are open on
+            load (default: false)
+          </li>
+          <li>
+            <code>auto</code>: boolean - Enable auto-detection (default: true if
+            config is empty)
+          </li>
+          <li>
+            <code>scope</code>: string - CSS selector to read variables from
+            (default: ":root")
+          </li>
+        </ul>
+
+        <h3>Programmatic Control</h3>
+        <div class="code-block">
+          <pre><code>slideVars.open();    // Open the controls panel
+slideVars.close();   // Close the controls panel
+slideVars.toggle();  // Toggle open/closed
+slideVars.destroy(); // Remove component from DOM</code></pre>
+        </div>
+      </section>
+
+      <!-- Tech Stack -->
+      <section class="section">
+        <h2>🛠️ Built With</h2>
+        <ul>
+          <li><strong>Lit 3.2+</strong> - Reactive web components (~5KB)</li>
+          <li><strong>TypeScript</strong> - Full type safety</li>
+          <li><strong>Vite 7</strong> - Fast bundler with Rolldown</li>
+          <li><strong>Shadow DOM</strong> - Encapsulated styles</li>
+        </ul>
+      </section>
+    </div>
+
+    <footer>
+      <p>
+        Made with ❤️ by
+        <a href="https://codepen.io" target="_blank">CodePen</a>
+      </p>
+      <p>
+        <a
+          href="https://github.com/codepen/slidevars"
+          target="_blank"
+          rel="noopener"
+          >GitHub</a
+        >
+        |
+        <a
+          href="https://www.npmjs.com/package/@codepen/slidevars"
+          target="_blank"
+          rel="noopener"
+          >npm</a
+        >
+      </p>
+    </footer>
+
+    <script type="module">
+      import { slideVars } from "./src/index.ts";
+
+      // Tab switching
+      document.querySelectorAll(".tab-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const tab = button.dataset.tab;
+
+          // Update buttons
+          document
+            .querySelectorAll(".tab-button")
+            .forEach((b) => b.classList.remove("active"));
+          button.classList.add("active");
+
+          // Update content
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+          document.getElementById(`${tab}-tab`).classList.add("active");
+
+          // Switch demo
+          switchDemo(tab);
+        });
+      });
+
+      let currentInstance = null;
+
+      function switchDemo(tab) {
+        // Destroy existing instance
+        if (currentInstance) {
+          slideVars.destroy();
+        }
+
+        if (tab === "auto") {
+          // Auto-detection demo
+          slideVars.init();
+        } else {
+          // Manual configuration demo
+          slideVars.init({
+            "--width": {
+              type: "slider",
+              min: 50,
+              max: 400,
+              default: 100,
+              unit: "px",
+              scope: "#manual-demo",
+            },
+            "--height": {
+              type: "slider",
+              min: 50,
+              max: 400,
+              default: 100,
+              unit: "px",
+              scope: "#manual-demo",
+            },
+            "--bg": {
+              type: "color",
+              default: "#667eea",
+              scope: "#manual-demo",
+            },
+            "--radius": {
+              type: "slider",
+              min: 0,
+              max: 200,
+              default: 0,
+              unit: "px",
+              scope: "#manual-demo",
+            },
+          });
+        }
+      }
+
+      // Initialize with auto-detection
+      switchDemo("auto");
+    </script>
+
+    <style>
+      /* CSS Variables for demos */
+      :root {
+        --box-size: 150px;
+        --box-color: #764ba2;
+        --border-radius: 20px;
+        --rotation: 0deg;
+        --shadow-size: 10px;
+        --animation-duration: 1s;
+      }
+    </style>
   </body>
 </html>
-

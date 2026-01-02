@@ -17,6 +17,6 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true, // Opens the index.html which links to both examples
+    open: true, // Opens the demo/documentation page
   },
 });

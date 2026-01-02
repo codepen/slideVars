@@ -89,19 +89,20 @@ This will inject a `<slide-vars>` web component into the `<body>` as a fixed-pos
 
 ## Development
 
-### Run the Examples
+### Run the Demo
 
-To test the library with the included examples:
+To test the library with the interactive demo/documentation:
 
 ```bash
 npm install
 npm run example
 ```
 
-This will start a dev server at `http://localhost:3000` with two examples:
+This will start a dev server at `http://localhost:3000` with a comprehensive single-page demo that includes:
 
-- **Auto-Detection Example** - Zero configuration, automatically detects all CSS variables
-- **Manual Configuration Example** - Full control with detailed settings
+- **Live Demo** - Interactive examples with tabs for auto-detection and manual configuration
+- **Full Documentation** - Installation, API reference, and usage examples
+- **Feature Showcase** - See all features in action
 
 The dev server supports hot reloading, so changes to the source files will update automatically.
 
