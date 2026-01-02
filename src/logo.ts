@@ -12,13 +12,14 @@ export class SlideVarsLogo extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
-      width: var(--logo-size, 24px);
-      height: var(--logo-size, 24px);
+      width: 100%;
+      aspect-ratio: 1;
     }
 
     svg {
       width: 100%;
       height: 100%;
+      filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.4));
     }
 
     .slider-line {

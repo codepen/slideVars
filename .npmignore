@@ -1,5 +1,7 @@
 src/
 index.html
+index.css
+index.js
 vite.config.js
 tsconfig.json
 .gitignore

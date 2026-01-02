@@ -1,0 +1,295 @@
+:root {
+  --size: 80px;
+  --bg: #121212;
+  --border-radius: 20px;
+  --rotation: 0deg;
+  --shadow-size: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f8f9fa;
+}
+
+.hero {
+  background: var(--bg);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 1rem 0;
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.hero-logo {
+  display: block;
+  width: var(--size);
+  aspect-ratio: 1;
+  margin: 0 auto 2rem;
+  rotate: var(--rotation);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section {
+  background: white;
+  padding: 3rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+  h2 {
+    margin-top: 0;
+    font-size: 2rem;
+  }
+  h3 {
+    margin-top: 2rem;
+  }
+}
+
+.demo-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.tab-button {
+  padding: 1rem 2rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s ease;
+  margin-bottom: -2px;
+
+  &:hover {
+    color: #667eea;
+  }
+
+  &.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+  }
+}
+
+.tab-content {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.demo-area {
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+  border-radius: 8px;
+  margin: 2rem 0;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo-box {
+  width: var(--size, 150px);
+  height: var(--size, 150px);
+  background: var(--bg, #764ba2);
+  border-radius: var(--border-radius, 20px);
+  transform: rotate(var(--rotation, 0deg));
+  box-shadow: 0 var(--shadow-size, 10px) calc(var(--shadow-size, 10px) * 2)
+    rgba(0, 0, 0, 0.3);
+  transition: all var(--animation-duration, 1s) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.manual-demo {
+  width: var(--width, 100px);
+  height: var(--height, 100px);
+  background: var(--bg, #667eea);
+  border-radius: var(--radius, 0px);
+  transition: all 0.3s ease;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+syntax-highlight,
+.live-css {
+  display: block;
+  background: black;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  border-left: 4px solid #667eea;
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: #d4d4d4;
+}
+
+.live-css {
+  white-space: pre;
+}
+
+.live-value {
+  color: #4ec9b0;
+}
+
+code {
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.code-block {
+  position: relative;
+}
+
+.copy-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.copy-button:hover {
+  background: #5568d3;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.feature {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature h3 {
+  margin: 0.5rem 0;
+  color: #667eea;
+}
+
+.feature p {
+  margin: 0;
+  color: #666;
+}
+
+.callout {
+  background: #e7f3ff;
+  border-left: 4px solid #667eea;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.callout-success {
+  background: #d4edda;
+  border-left-color: #28a745;
+}
+
+.callout strong {
+  color: #667eea;
+}
+
+.callout-success strong {
+  color: #28a745;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.install-command {
+  background: #1e1e1e;
+  color: #4ec9b0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-family: "Monaco", "Courier New", monospace;
+  margin: 1rem 0;
+}
+
+.install-command code {
+  color: inherit;
+}
+
+footer {
+  background: #2d3748;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
+footer a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.inline-logo {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}

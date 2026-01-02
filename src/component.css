@@ -6,15 +6,39 @@
   top: 20px;
   right: 20px;
   z-index: 10000;
+
+  --cp-color-green-hsl: 139.41deg 58.62% 54.51%;
+  --cp-color-green: hsl(var(--cp-color-green-hsl));
+  /* --cp-color-green-light = #d3ffe1; */
+
+  --cp-color-yellow-hsl: 49.32deg 100% 62.55%;
+  --cp-color-yellow: hsl(var(--cp-color-yellow-hsl));
+
+  --cp-color-purple-hsl: 274.88deg 70.49% 64.12%;
+  --cp-color-purple: hsl(var(--cp-color-purple-hsl));
+
+  --cp-color-red-hsl: 358.46deg 100% 61.76%;
+  --cp-color-red: hsl(var(--cp-color-red-hsl));
+
+  --cp-color-blue-hsl: 196.18deg 100% 52.75%;
+  --cp-color-blue: hsl(var(--cp-color-blue-hsl));
 }
 
 .toggle-button {
   position: relative;
   width: 48px;
   height: 48px;
+  padding: 12px;
   border: none;
   border-radius: 50%;
-  background: #4caf50;
+  background: conic-gradient(
+    from var(--bg-angle, 0deg),
+    var(--cp-color-yellow),
+    var(--cp-color-green),
+    var(--cp-color-blue),
+    var(--cp-color-purple),
+    var(--cp-color-yellow)
+  );
   color: white;
   cursor: pointer;
   display: flex;
@@ -23,17 +47,15 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
   z-index: 1;
-  --logo-size: 24px;
-}
 
-.toggle-button:hover {
-  background: #45a049;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.toggle-button:active {
-  transform: scale(0.95);
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .controls-panel {
