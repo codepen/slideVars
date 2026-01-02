@@ -16,7 +16,6 @@
   border-radius: 50%;
   background: #4caf50;
   color: white;
-  font-size: 24px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -24,6 +23,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
   z-index: 1;
+  --logo-size: 24px;
 }
 
 .toggle-button:hover {

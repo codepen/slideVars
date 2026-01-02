@@ -2,6 +2,7 @@ import { LitElement, html, css, unsafeCSS } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import type { SlideVarsConfig, SliderConfig, ColorConfig } from "./types";
 import styles from "./component.css?inline";
+import "./logo";
 
 @customElement("slide-vars")
 export class SlideVarsElement extends LitElement {
@@ -169,7 +170,7 @@ export class SlideVarsElement extends LitElement {
         aria-label="Toggle CSS variable controls"
         @click="${this.toggle}"
       >
-        🎛️
+        <slidevars-logo .open="${this.isOpen}"></slidevars-logo>
       </button>
 
       <div class="controls-panel ${this.isOpen ? "open" : ""}">

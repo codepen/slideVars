@@ -120,6 +120,7 @@ This uses Vite 7 with Rolldown (a fast Rust-based bundler) to create the distrib
 - **TypeScript** - Full type safety
 - **Vite 7** - Fast bundler with Rolldown (Rust-based)
 - **Shadow DOM** - Encapsulated styles and markup
+- **Animated SVG Logo** - Custom `<slidevars-logo>` component with smooth transitions
 
 ### Why Lit?
 
@@ -128,6 +129,16 @@ This uses Vite 7 with Rolldown (a fast Rust-based bundler) to create the distrib
 - 🎯 **Simple** - Declarative HTML templates
 - 🔧 **Standard** - Built on web components standards
 - 📦 **No Virtual DOM** - Direct DOM manipulation
+
+### Logo Component
+
+The library includes a custom `<slidevars-logo>` component that displays three animated range sliders. The sliders animate to different positions when the panel opens/closes:
+
+```html
+<slidevars-logo open="false"></slidevars-logo>
+```
+
+You can use this logo independently in your own projects!
 
 ### Slider Configuration
 

@@ -1,10 +1,12 @@
 import "./component"; // Import to register the custom element
+import "./logo"; // Import to register the logo element
 import { SlideVarsElement } from "./component";
+import { SlideVarsLogo } from "./logo";
 import { autoDetectVariables } from "./autoDetect";
 import type { SlideVarsConfig, SlideVarsOptions } from "./types";
 
 export * from "./types";
-export { SlideVarsElement };
+export { SlideVarsElement, SlideVarsLogo };
 
 class SlideVars {
   private element: SlideVarsElement | null = null;

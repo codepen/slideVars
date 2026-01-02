@@ -32,10 +32,11 @@
         font-weight: 700;
       }
 
-      .hero .emoji {
-        font-size: 4rem;
-        display: block;
-        margin-bottom: 1rem;
+      .hero-logo {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 2rem;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
       }
 
       .hero p {
@@ -304,7 +305,7 @@
   </head>
   <body>
     <div class="hero">
-      <span class="emoji">🎛️</span>
+      <slidevars-logo class="hero-logo" open="true"></slidevars-logo>
       <h1>SlideVars</h1>
       <p>Interactive UI controls for your CSS custom properties</p>
       <p class="tagline">
@@ -340,8 +341,18 @@ slideVars.init(); // That's it!</code></pre>
       <section class="section">
         <h2>🎨 Live Demo</h2>
         <p>
-          <strong>Click the 🎛️ button in the top right</strong> to open the
-          controls and interact with the demos below!
+          <strong
+            >Click the <slidevars-logo
+              style="
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                vertical-align: middle;
+              "
+            ></slidevars-logo>
+            button in the top right</strong
+          >
+          to open the controls and interact with the demos below!
         </p>
 
         <div class="demo-tabs">
@@ -595,6 +606,7 @@ slideVars.destroy(); // Remove component from DOM</code></pre>
 
     <script type="module">
       import { slideVars } from "./src/index.ts";
+      import "./src/logo.ts";
 
       // Tab switching
       document.querySelectorAll(".tab-button").forEach((button) => {
