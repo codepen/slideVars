@@ -1,0 +1,9 @@
+src/
+example.html
+example-auto.html
+index.html
+vite.config.js
+tsconfig.json
+.gitignore
+*.log
+

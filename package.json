@@ -1,0 +1,25 @@
+{
+  "name": "@codepen/slidevars",
+  "version": "1.0.0",
+  "description": "UI to control your CSS custom properties",
+  "license": "MIT",
+  "author": "CodePen",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "example": "vite",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^7.0.5"
+  }
+}
