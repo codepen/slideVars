@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   build: {
@@ -11,10 +12,11 @@ export default defineConfig({
     },
     rollupOptions: {
       // Make sure to externalize deps that shouldn't be bundled
-      external: [],
+      external: ["lit"],
     },
     sourcemap: true,
   },
+  plugins: [dts({ rollupTypes: true })],
   server: {
     port: 3000,
     open: true, // Opens the demo/documentation page
