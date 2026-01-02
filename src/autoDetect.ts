@@ -1,19 +1,87 @@
 import type { SlideVarsConfig, CSSUnit, AutoDetectDefaults } from "./types";
 
 const DEFAULT_SLIDER_RANGES: Record<string, { min: number; max: number; step?: number }> = {
+  // Absolute length units
   px: { min: 0, max: 500, step: 1 },
-  rem: { min: 0, max: 10, step: 0.1 },
+  cm: { min: 0, max: 50, step: 0.1 },
+  mm: { min: 0, max: 500, step: 1 },
+  in: { min: 0, max: 20, step: 0.1 },
+  pt: { min: 0, max: 100, step: 1 },
+  pc: { min: 0, max: 50, step: 1 },
+  Q: { min: 0, max: 1000, step: 1 },
+  
+  // Font-relative length units
   em: { min: 0, max: 10, step: 0.1 },
-  "%": { min: 0, max: 100, step: 1 },
+  rem: { min: 0, max: 10, step: 0.1 },
+  ex: { min: 0, max: 100, step: 1 },
+  rex: { min: 0, max: 100, step: 1 },
+  cap: { min: 0, max: 100, step: 1 },
+  rcap: { min: 0, max: 100, step: 1 },
+  ch: { min: 0, max: 100, step: 1 },
+  rch: { min: 0, max: 100, step: 1 },
+  ic: { min: 0, max: 100, step: 1 },
+  ric: { min: 0, max: 100, step: 1 },
+  lh: { min: 0, max: 10, step: 0.1 },
+  rlh: { min: 0, max: 10, step: 0.1 },
+  
+  // Viewport-percentage lengths
   vw: { min: 0, max: 100, step: 1 },
   vh: { min: 0, max: 100, step: 1 },
+  vi: { min: 0, max: 100, step: 1 },
+  vb: { min: 0, max: 100, step: 1 },
+  vmin: { min: 0, max: 100, step: 1 },
+  vmax: { min: 0, max: 100, step: 1 },
+  svw: { min: 0, max: 100, step: 1 },
+  svh: { min: 0, max: 100, step: 1 },
+  svi: { min: 0, max: 100, step: 1 },
+  svb: { min: 0, max: 100, step: 1 },
+  svmin: { min: 0, max: 100, step: 1 },
+  svmax: { min: 0, max: 100, step: 1 },
+  lvw: { min: 0, max: 100, step: 1 },
+  lvh: { min: 0, max: 100, step: 1 },
+  lvi: { min: 0, max: 100, step: 1 },
+  lvb: { min: 0, max: 100, step: 1 },
+  lvmin: { min: 0, max: 100, step: 1 },
+  lvmax: { min: 0, max: 100, step: 1 },
   dvw: { min: 0, max: 100, step: 1 },
   dvh: { min: 0, max: 100, step: 1 },
-  ch: { min: 0, max: 100, step: 1 },
-  ex: { min: 0, max: 100, step: 1 },
+  dvi: { min: 0, max: 100, step: 1 },
+  dvb: { min: 0, max: 100, step: 1 },
+  dvmin: { min: 0, max: 100, step: 1 },
+  dvmax: { min: 0, max: 100, step: 1 },
+  
+  // Container query length units
+  cqw: { min: 0, max: 100, step: 1 },
+  cqh: { min: 0, max: 100, step: 1 },
+  cqi: { min: 0, max: 100, step: 1 },
+  cqb: { min: 0, max: 100, step: 1 },
+  cqmin: { min: 0, max: 100, step: 1 },
+  cqmax: { min: 0, max: 100, step: 1 },
+  
+  // Angle units
   deg: { min: 0, max: 360, step: 1 },
+  grad: { min: 0, max: 400, step: 1 },
+  rad: { min: 0, max: 6.28, step: 0.01 },
+  turn: { min: 0, max: 1, step: 0.01 },
+  
+  // Time units
   s: { min: 0, max: 10, step: 0.1 },
   ms: { min: 0, max: 5000, step: 50 },
+  
+  // Frequency units
+  Hz: { min: 0, max: 20000, step: 10 },
+  kHz: { min: 0, max: 20, step: 0.1 },
+  
+  // Resolution units
+  dpi: { min: 72, max: 600, step: 1 },
+  dpcm: { min: 28, max: 236, step: 1 },
+  dppx: { min: 1, max: 4, step: 0.1 },
+  
+  // Percentage
+  "%": { min: 0, max: 100, step: 1 },
+  
+  // Flex
+  fr: { min: 0, max: 10, step: 0.1 },
 };
 
 export function autoDetectVariables(

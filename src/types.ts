@@ -1,13 +1,76 @@
 export type CSSUnit =
+  // Absolute length units
   | "px"
-  | "rem"
+  | "cm"
+  | "mm"
+  | "in"
+  | "pt"
+  | "pc"
+  | "Q"
+  // Font-relative length units
   | "em"
+  | "rem"
+  | "ex"
+  | "rex"
+  | "cap"
+  | "rcap"
+  | "ch"
+  | "rch"
+  | "ic"
+  | "ric"
+  | "lh"
+  | "rlh"
+  // Viewport-percentage lengths
   | "vw"
   | "vh"
+  | "vi"
+  | "vb"
+  | "vmin"
+  | "vmax"
+  | "svw"
+  | "svh"
+  | "svi"
+  | "svb"
+  | "svmin"
+  | "svmax"
+  | "lvw"
+  | "lvh"
+  | "lvi"
+  | "lvb"
+  | "lvmin"
+  | "lvmax"
+  | "dvw"
+  | "dvh"
   | "dvi"
+  | "dvb"
+  | "dvmin"
+  | "dvmax"
+  // Container query length units
+  | "cqw"
+  | "cqh"
+  | "cqi"
+  | "cqb"
+  | "cqmin"
+  | "cqmax"
+  // Angle units
+  | "deg"
+  | "grad"
+  | "rad"
+  | "turn"
+  // Time units
+  | "s"
+  | "ms"
+  // Frequency units
+  | "Hz"
+  | "kHz"
+  // Resolution units
+  | "dpi"
+  | "dpcm"
+  | "dppx"
+  // Percentage
   | "%"
-  | "ch"
-  | "ex";
+  // Flex
+  | "fr";
 
 export interface SliderConfig {
   type: "slider";

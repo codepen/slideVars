@@ -233,17 +233,21 @@ slideVars.init(
 
 ### Default Slider Ranges
 
-Auto-detected sliders use these default ranges by unit:
+Auto-detected sliders use these default ranges by unit type. Based on [MDN CSS numeric data types](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Values_and_units/Numeric_data_types):
 
-| Unit   | Min | Max  | Step |
-| ------ | --- | ---- | ---- |
-| px     | 0   | 500  | 1    |
-| rem/em | 0   | 10   | 0.1  |
-| %      | 0   | 100  | 1    |
-| vw/vh  | 0   | 100  | 1    |
-| deg    | 0   | 360  | 1    |
-| s      | 0   | 10   | 0.1  |
-| ms     | 0   | 5000 | 50   |
+**Length Units:**
+- Absolute: `px`, `cm`, `mm`, `in`, `pt`, `pc`, `Q`
+- Font-relative: `em`, `rem`, `ex`, `rex`, `cap`, `rcap`, `ch`, `rch`, `ic`, `ric`, `lh`, `rlh`
+- Viewport: `vw`, `vh`, `vi`, `vb`, `vmin`, `vmax`, `svw`, `svh`, `svi`, `svb`, `lvw`, `lvh`, `dvw`, `dvh`, `dvi`, `dvb`
+- Container: `cqw`, `cqh`, `cqi`, `cqb`, `cqmin`, `cqmax`
+
+**Other Units:**
+- Angle: `deg` (0-360), `grad` (0-400), `rad` (0-6.28), `turn` (0-1)
+- Time: `s` (0-10), `ms` (0-5000)
+- Frequency: `Hz` (0-20000), `kHz` (0-20)
+- Resolution: `dpi` (72-600), `dpcm` (28-236), `dppx` (1-4)
+- Percentage: `%` (0-100)
+- Flex: `fr` (0-10)
 
 Ranges automatically expand if the current value is outside the defaults.
 

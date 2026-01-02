@@ -32,8 +32,21 @@ function switchDemo(tab) {
   }
 
   if (tab === "auto") {
-    // Auto-detection demo
-    slideVars.init();
+    // Auto-detection demo (with one manual just for fun)
+    slideVars.init(
+      {
+        "--shadow-size": {
+          type: "slider",
+          min: 3,
+          max: 30,
+          default: 10,
+          unit: "px",
+        },
+      },
+      {
+        auto: true,
+      }
+    );
   } else {
     // Manual configuration demo
     slideVars.init({

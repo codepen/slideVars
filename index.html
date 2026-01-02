@@ -42,12 +42,6 @@
 slideVars.init(); // That's it!</syntax-highlight
           >
         </div>
-
-        <div class="callout callout-success">
-          <strong>✨ Zero Configuration!</strong> SlideVars automatically
-          detects all CSS variables from <code>:root</code> and creates
-          appropriate controls.
-        </div>
       </section>
 
       <!-- Live Demo -->
@@ -133,7 +127,12 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
     scope: "#manual-demo"
   }, 
   "--bg": { 
-    type: "color", default: "#667eea", scope: "#manual-demo" }, "--radius": { type: "slider",
+    type: "color", 
+    default: "#667eea", 
+    scope: "#manual-demo"
+  },
+  "--radius": { 
+    type: "slider",
     min: 0, 
     max: 200, 
     default: 0, 
@@ -184,62 +183,62 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
 
       <!-- Default Ranges -->
       <section class="section">
-        <h2>📊 Default Slider Ranges</h2>
-        <p>Auto-detected sliders use these intelligent defaults:</p>
+        <h2>Supported Units</h2>
+        <p>
+          Auto-detected sliders support all
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Values_and_units/Numeric_data_types"
+            target="_blank"
+            rel="noopener"
+            >CSS numeric data types</a
+          >
+          with intelligent default ranges:
+        </p>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Unit</th>
-              <th>Min</th>
-              <th>Max</th>
-              <th>Step</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>px</code></td>
-              <td>0</td>
-              <td>500</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td><code>rem</code>, <code>em</code></td>
-              <td>0</td>
-              <td>10</td>
-              <td>0.1</td>
-            </tr>
-            <tr>
-              <td><code>%</code>, <code>vw</code>, <code>vh</code></td>
-              <td>0</td>
-              <td>100</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td><code>deg</code></td>
-              <td>0</td>
-              <td>360</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td><code>s</code></td>
-              <td>0</td>
-              <td>10</td>
-              <td>0.1</td>
-            </tr>
-            <tr>
-              <td><code>ms</code></td>
-              <td>0</td>
-              <td>5000</td>
-              <td>50</td>
-            </tr>
-          </tbody>
-        </table>
+        <h3>Length Units</h3>
+        <ul>
+          <li>
+            <strong>Absolute:</strong> <code>px</code>, <code>cm</code>,
+            <code>mm</code>, <code>in</code>, <code>pt</code>, <code>pc</code>,
+            <code>Q</code>
+          </li>
+          <li>
+            <strong>Font-relative:</strong> <code>em</code>, <code>rem</code>,
+            <code>ex</code>, <code>ch</code>, <code>cap</code>, <code>lh</code>,
+            and root variants (<code>rex</code>, <code>rch</code>, etc.)
+          </li>
+          <li>
+            <strong>Viewport:</strong> <code>vw</code>, <code>vh</code>,
+            <code>vmin</code>, <code>vmax</code>, and variants
+            (<code>svw</code>, <code>lvh</code>, <code>dvw</code>, etc.)
+          </li>
+          <li>
+            <strong>Container:</strong> <code>cqw</code>, <code>cqh</code>,
+            <code>cqi</code>, <code>cqb</code>, <code>cqmin</code>,
+            <code>cqmax</code>
+          </li>
+        </ul>
 
-        <div class="callout">
+        <h3>Other Unit Types</h3>
+        <ul>
+          <li>
+            <strong>Angle:</strong> <code>deg</code>, <code>grad</code>,
+            <code>rad</code>, <code>turn</code>
+          </li>
+          <li><strong>Time:</strong> <code>s</code>, <code>ms</code></li>
+          <li><strong>Frequency:</strong> <code>Hz</code>, <code>kHz</code></li>
+          <li>
+            <strong>Resolution:</strong> <code>dpi</code>, <code>dpcm</code>,
+            <code>dppx</code>
+          </li>
+          <li><strong>Percentage:</strong> <code>%</code></li>
+          <li><strong>Flex:</strong> <code>fr</code></li>
+        </ul>
+
+        <p>
           <strong>💡 Smart Adaptation:</strong> Ranges automatically expand if
           the current value is outside the defaults.
-        </div>
+        </p>
       </section>
 
       <!-- API Reference -->
