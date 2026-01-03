@@ -18,8 +18,12 @@ class SlideVars {
    * @param options - Optional configuration for the component behavior
    */
   init(config: SlideVarsConfig = {}, options: SlideVarsOptions = {}): void {
-    // Remove existing element if it exists
-    if (this.element && this.element.parentNode) {
+    // Remove existing managed element if it exists and we created it
+    if (
+      this.element &&
+      this.element.parentNode &&
+      !this.element.hasAttribute("data-manual")
+    ) {
       this.element.parentNode.removeChild(this.element);
     }
 
@@ -31,19 +35,31 @@ class SlideVars {
       finalConfig = { ...autoConfig, ...config };
     }
 
-    // Create and inject the custom element
-    this.element = new SlideVarsElement();
-    this.element.setConfig(finalConfig, options.defaultOpen ?? false);
+    // Check if user has manually placed a <slide-vars> element in their HTML
+    const existingElement = document.querySelector(
+      "slide-vars"
+    ) as SlideVarsElement | null;
 
-    // Wait for DOM to be ready
-    if (document.body) {
-      document.body.appendChild(this.element);
+    if (existingElement) {
+      // Use the existing element (preserves slotted content)
+      this.element = existingElement;
+      this.element.setAttribute("data-manual", "true");
+      this.element.setConfig(finalConfig, options.defaultOpen ?? false);
     } else {
-      document.addEventListener("DOMContentLoaded", () => {
-        if (this.element) {
-          document.body.appendChild(this.element);
-        }
-      });
+      // Create and inject the custom element
+      this.element = new SlideVarsElement();
+      this.element.setConfig(finalConfig, options.defaultOpen ?? false);
+
+      // Wait for DOM to be ready
+      if (document.body) {
+        document.body.appendChild(this.element);
+      } else {
+        document.addEventListener("DOMContentLoaded", () => {
+          if (this.element) {
+            document.body.appendChild(this.element);
+          }
+        });
+      }
     }
   }
 

@@ -7,16 +7,21 @@ document.querySelectorAll(".tab-button").forEach((button) => {
     const tab = button.dataset.tab;
 
     // Update buttons
-    document
-      .querySelectorAll(".tab-button")
-      .forEach((b) => b.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach((b) => {
+      b.classList.remove("active");
+      b.setAttribute("aria-selected", "false");
+    });
     button.classList.add("active");
+    button.setAttribute("aria-selected", "true");
 
     // Update content
-    document
-      .querySelectorAll(".tab-content")
-      .forEach((c) => c.classList.remove("active"));
-    document.getElementById(`${tab}-tab`).classList.add("active");
+    document.querySelectorAll(".tab-content").forEach((c) => {
+      c.classList.remove("active");
+      c.setAttribute("hidden", "");
+    });
+    const activeTab = document.getElementById(`${tab}-tab`);
+    activeTab.classList.add("active");
+    activeTab.removeAttribute("hidden");
 
     // Switch demo
     switchDemo(tab);

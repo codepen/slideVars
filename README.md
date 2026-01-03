@@ -132,13 +132,11 @@ This uses Vite 7 with Rolldown (a fast Rust-based bundler) to create the distrib
 
 ### Logo Component
 
-The library includes a custom `<slidevars-logo>` component that displays three animated range sliders. The sliders animate to different positions when the panel opens/closes:
+Just for fuzies, the library includes a custom `<slidevars-logo>` component that displays three animated range sliders. The sliders animate to different positions when the panel opens/closes:
 
 ```html
 <slidevars-logo open="false"></slidevars-logo>
 ```
-
-You can use this logo independently in your own projects!
 
 ### Slider Configuration
 
@@ -170,6 +168,31 @@ You can use this logo independently in your own projects!
 
 ## Advanced Usage
 
+### Manual Placement with Custom Content
+
+By default, `slideVars.init()` creates and injects the `<slide-vars>` element automatically. However, you can manually place it in your HTML to control its position and add custom content via slots:
+
+```html
+<!-- Place the element wherever you want in your HTML -->
+<slide-vars>
+  <h2>🎛️ Control Panel</h2>
+  <p>Adjust the values below to customize your design:</p>
+</slide-vars>
+```
+
+```javascript
+import { slideVars } from "@codepen/slidevars";
+
+// init() will find and use the existing element
+slideVars.init();
+```
+
+This approach gives you:
+
+- **Custom positioning** - Place the element anywhere in your DOM structure
+- **Slotted content** - Add custom HTML that appears above the controls
+- **More control** - Style or manipulate the element as needed
+
 ### Programmatic Control
 
 ```javascript
@@ -187,17 +210,6 @@ slideVars.destroy();
 
 // Get the element reference
 const element = slideVars.getElement();
-```
-
-### Styling with Slots
-
-The component uses Shadow DOM, which means you can provide custom content via slots:
-
-```html
-<slide-vars>
-  <h2>Controls</h2>
-  <p>Adjust the values below:</p>
-</slide-vars>
 ```
 
 ### Options
@@ -236,12 +248,14 @@ slideVars.init(
 Auto-detected sliders use these default ranges by unit type. Based on [MDN CSS numeric data types](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Values_and_units/Numeric_data_types):
 
 **Length Units:**
+
 - Absolute: `px`, `cm`, `mm`, `in`, `pt`, `pc`, `Q`
 - Font-relative: `em`, `rem`, `ex`, `rex`, `cap`, `rcap`, `ch`, `rch`, `ic`, `ric`, `lh`, `rlh`
 - Viewport: `vw`, `vh`, `vi`, `vb`, `vmin`, `vmax`, `svw`, `svh`, `svi`, `svb`, `lvw`, `lvh`, `dvw`, `dvh`, `dvi`, `dvb`
 - Container: `cqw`, `cqh`, `cqi`, `cqb`, `cqmin`, `cqmax`
 
 **Other Units:**
+
 - Angle: `deg` (0-360), `grad` (0-400), `rad` (0-6.28), `turn` (0-1)
 - Time: `s` (0-10), `ms` (0-5000)
 - Frequency: `Hz` (0-20000), `kHz` (0-20)

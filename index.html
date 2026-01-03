@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SlideVars - Interactive CSS Variable Controls</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./index.css" />
     <link
       rel="stylesheet"
@@ -22,28 +28,24 @@
 
       <p>
         Interactive UI controls for your CSS custom properties, automatically.
+        From your pals at <a href="https://codepen.io">CodePen</a>.
       </p>
-    </div>
 
-    <div class="container">
-      <section class="section">
-        <h2>Quick Start</h2>
-        <p>Install via npm:</p>
-        <div class="install-command">
-          <code>npm install @codepen/slidevars</code>
-        </div>
+      <div class="install-command">
+        <code>npm install @codepen/slidevars</code>
+      </div>
 
-        <p>The simplest possible usage:</p>
-        <div class="code-block">
-          <!-- prettier-ignore -->
-          <syntax-highlight language="js"
+      <div class="code-block">
+        <!-- prettier-ignore -->
+        <syntax-highlight language="js"
             >import { slideVars } from "@codepen/slidevars";
             
 slideVars.init(); // That's it!</syntax-highlight
           >
-        </div>
-      </section>
+      </div>
+    </div>
 
+    <div class="container">
       <!-- Live Demo -->
       <section class="section">
         <h2>Live Demo</h2>
@@ -56,17 +58,36 @@ slideVars.init(); // That's it!</syntax-highlight
           to open the controls and interact with the demos below!
         </p>
 
-        <div class="demo-tabs">
-          <button class="tab-button active" data-tab="auto">
+        <div class="demo-tabs" role="tablist" aria-label="Demo examples">
+          <button
+            class="tab-button active"
+            data-tab="auto"
+            role="tab"
+            aria-selected="true"
+            aria-controls="auto-tab"
+            id="auto-tab-button"
+          >
             Auto-Detection
           </button>
-          <button class="tab-button" data-tab="manual">
+          <button
+            class="tab-button"
+            data-tab="manual"
+            role="tab"
+            aria-selected="false"
+            aria-controls="manual-tab"
+            id="manual-tab-button"
+          >
             Manual Configuration
           </button>
         </div>
 
         <!-- Auto Detection Tab -->
-        <div class="tab-content active" id="auto-tab">
+        <div
+          class="tab-content active"
+          id="auto-tab"
+          role="tabpanel"
+          aria-labelledby="auto-tab-button"
+        >
           <h3>Auto-Detection Example</h3>
           <p>
             Just define CSS variables in your stylesheet. SlideVars figures out
@@ -96,7 +117,13 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
         </div>
 
         <!-- Manual Configuration Tab -->
-        <div class="tab-content" id="manual-tab">
+        <div
+          class="tab-content"
+          id="manual-tab"
+          role="tabpanel"
+          aria-labelledby="manual-tab-button"
+          hidden
+        >
           <h3>Manual Configuration Example</h3>
           <p>
             For more control, configure each variable manually with custom
@@ -144,41 +171,28 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
         </div>
       </section>
 
-      <!-- Features -->
+      <!-- Manual Placement -->
       <section class="section">
-        <h2>Features</h2>
-        <div class="feature-grid">
-          <div class="feature">
-            <div class="feature-icon">🤖</div>
-            <h3>Auto-Detection</h3>
-            <p>Automatically discovers CSS variables and creates controls</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🎨</div>
-            <h3>Color Pickers</h3>
-            <p>Beautiful native color pickers for color variables</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🎚️</div>
-            <h3>Smart Sliders</h3>
-            <p>Intelligent ranges based on unit types (px, rem, %, etc.)</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">⚡</div>
-            <h3>Reactive</h3>
-            <p>Built with Lit for fast, efficient updates</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🎯</div>
-            <h3>Scoped</h3>
-            <p>Apply variables to specific elements or document-wide</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🪶</div>
-            <h3>Lightweight</h3>
-            <p>Small bundle size (~5KB Lit + minimal code)</p>
-          </div>
+        <h2>Advanced: Manual Placement</h2>
+        <p>
+          Want more control? You can manually place the
+          <code>&lt;slide-vars&gt;</code>
+          element in your HTML and add custom content via slots:
+        </p>
+
+        <div class="code-block">
+          <!-- prettier-ignore -->
+          <syntax-highlight language="html">&lt;slide-vars&gt;
+  &lt;h2&gt;🎛️ Control Panel&lt;/h2&gt;
+  &lt;p&gt;Adjust the values below:&lt;/p&gt;
+&lt;/slide-vars&gt;</syntax-highlight>
         </div>
+
+        <p>
+          This gives you control over positioning and lets you add custom
+          headings, descriptions, or any HTML content that appears above the
+          controls.
+        </p>
       </section>
 
       <!-- Default Ranges -->
@@ -243,7 +257,7 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
 
       <!-- API Reference -->
       <section class="section">
-        <h2>📖 API Reference</h2>
+        <h2>API Reference</h2>
 
         <h3><code>slideVars.init(config?, options?)</code></h3>
         <p>Initialize the component with optional configuration.</p>
@@ -274,18 +288,6 @@ slideVars.toggle(); // Toggle open/closed
 slideVars.destroy(); // Remove component from DOM</syntax-highlight
           >
         </div>
-      </section>
-
-      <!-- Tech Stack -->
-      <section class="section">
-        <h2>Built With</h2>
-        <ul>
-          <li>
-            <strong>Lit 3.2+</strong> - Reactive web components with Shadow DOM
-          </li>
-          <li><strong>TypeScript</strong> - Full type safety</li>
-          <li><strong>Vite 7</strong> - Fast bundler with Rolldown</li>
-        </ul>
       </section>
     </div>
 
