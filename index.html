@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SlideVars - Interactive CSS Variable Controls</title>
+    <title>slideVars - Automatic Sliders for CSS Custom Properties</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +25,7 @@
     <div class="hero">
       <slidevars-logo class="hero-logo" open="true"></slidevars-logo>
 
-      <h1>SlideVars</h1>
+      <h1>slideVars</h1>
 
       <p>
         Interactive UI controls for your CSS <code>--custom-properties</code>,
@@ -57,10 +57,15 @@
 slideVars.init(); // That's it!</syntax-highlight
           >
       </div>
+
+      <p>
+        <a href="https://codepen.io/chriscoyier/pen/raLxxRY"
+          >Basic Usage Pen ↗</a
+        >
+      </p>
     </div>
 
     <div class="container">
-      <!-- Live Demo -->
       <section class="section">
         <h2>Live Demo</h2>
         <p>
@@ -69,7 +74,8 @@ slideVars.init(); // That's it!</syntax-highlight
             <slidevars-logo class="inline-logo"></slidevars-logo>
             button in the top right</strong
           >
-          to open the controls and interact with the demos below!
+          to open the controls. Move the sliders (and pick colors) to see the
+          changes reflected in the demo below.
         </p>
 
         <div class="demo-tabs" role="tablist" aria-label="Demo examples">
@@ -189,29 +195,25 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
       <section class="section">
         <h2>Advanced: Manual Placement</h2>
         <p>
-          Want more control? You can manually place the
+          You can manually place the
           <code>&lt;slide-vars&gt;</code>
-          element in your HTML and add custom content via slots:
+          element wherever you want HTML (rather than it being auto-injected
+          into the bottom of the <code>&lt;body&gt;</code>). Children will be
+          slotted into the top of the control panel.
         </p>
 
         <div class="code-block">
           <!-- prettier-ignore -->
           <syntax-highlight language="html">&lt;slide-vars&gt;
-  &lt;h2&gt;🎛️ Control Panel&lt;/h2&gt;
-  &lt;p&gt;Adjust the values below:&lt;/p&gt;
+  &lt;p&gt;Welcome to the fun zone.&lt;/p&gt;
 &lt;/slide-vars&gt;</syntax-highlight>
         </div>
-
-        <p>
-          This gives you control over positioning and lets you add custom
-          headings, descriptions, or any HTML content that appears above the
-          controls.
-        </p>
       </section>
 
-      <!-- Default Ranges -->
       <section class="section">
-        <h2>Supported Units</h2>
+        <h2>Supported Values</h2>
+
+        <h3>Length Units</h3>
         <p>
           Auto-detected sliders support all
           <a
@@ -222,8 +224,6 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
           >
           with intelligent default ranges:
         </p>
-
-        <h3>Length Units</h3>
         <ul>
           <li>
             <strong>Absolute:</strong> <code>px</code>, <code>cm</code>,
@@ -245,10 +245,6 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
             <code>cqi</code>, <code>cqb</code>, <code>cqmin</code>,
             <code>cqmax</code>
           </li>
-        </ul>
-
-        <h3>Other Unit Types</h3>
-        <ul>
           <li>
             <strong>Angle:</strong> <code>deg</code>, <code>grad</code>,
             <code>rad</code>, <code>turn</code>
@@ -260,16 +256,36 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
             <code>dppx</code>
           </li>
           <li><strong>Percentage:</strong> <code>%</code></li>
-          <li><strong>Flex:</strong> <code>fr</code></li>
+          <li><strong>Grid:</strong> <code>fr</code></li>
         </ul>
 
         <p>
           <strong>💡 Smart Adaptation:</strong> Ranges automatically expand if
           the current value is outside the defaults.
         </p>
+
+        <h3>Color Values</h3>
+        <p>Auto-detected color variables support:</p>
+        <ul>
+          <li>
+            <strong>Hex:</strong> <code>#rgb</code>, <code>#rrggbb</code>,
+            <code>#rrggbbaa</code>
+          </li>
+          <li>
+            <strong>Functional:</strong> <code>rgb()</code>,
+            <code>rgba()</code>, <code>hsl()</code>, <code>hsla()</code>
+          </li>
+          <li>
+            <strong>Named:</strong> standard CSS named colors (including
+            <code>transparent</code> and <code>currentColor</code>)
+          </li>
+        </ul>
+        <p>
+          Note: newer color syntaxes (like <code>oklch()</code> /
+          <code>color()</code>) aren’t currently auto-detected.
+        </p>
       </section>
 
-      <!-- API Reference -->
       <section class="section">
         <h2>API Reference</h2>
 

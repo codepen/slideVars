@@ -1,6 +1,9 @@
 import type { SlideVarsConfig, CSSUnit, AutoDetectDefaults } from "./types";
 
 const DEFAULT_SLIDER_RANGES: Record<string, { min: number; max: number; step?: number }> = {
+  // Unit-less numbers (e.g. line-height: 1.4)
+  "": { min: 0, max: 5, step: 0.1 },
+
   // Absolute length units
   px: { min: 0, max: 500, step: 1 },
   cm: { min: 0, max: 50, step: 0.1 },
@@ -142,26 +145,52 @@ function detectValueType(
     };
   }
 
+  // Try to detect unit-less numeric values (e.g. 1 or 1.4)
+  const unitlessMatch = value.match(/^(-?\d*\.?\d+)$/);
+  if (unitlessMatch) {
+    const currentValue = parseFloat(unitlessMatch[1]);
+
+    const range = sliderRanges[""] || { min: 0, max: 5, step: 0.1 };
+    const min = 0;
+    const max =
+      currentValue !== 0
+        ? Math.ceil(Math.abs(currentValue) * 10)
+        : range.max ?? 5;
+    const step = range.step ?? 0.1;
+    const defaultValue = Math.min(Math.max(currentValue, min), max);
+
+    return {
+      type: "slider",
+      min,
+      max,
+      default: defaultValue,
+      unit: "",
+      step: step ?? 0.1,
+    };
+  }
+
   // Try to detect numeric value with unit
-  const numericMatch = value.match(/^(-?\d+\.?\d*)\s*([a-z%]+)$/i);
+  const numericMatch = value.match(/^(-?\d*\.?\d+)\s*([a-z%]+)$/i);
   if (numericMatch) {
     const [, numStr, unit] = numericMatch;
     const currentValue = parseFloat(numStr);
     
     const range = sliderRanges[unit];
     if (range) {
-      // Adjust range if current value is outside defaults
-      let { min, max, step } = range;
-      if (currentValue < min) min = Math.floor(currentValue);
-      if (currentValue > max) max = Math.ceil(currentValue * 1.5);
+      const min = 0;
+      const max =
+        currentValue !== 0
+          ? Math.ceil(Math.abs(currentValue) * 10)
+          : range.max;
+      const defaultValue = Math.min(Math.max(currentValue, min), max);
 
       return {
         type: "slider",
         min,
         max,
-        default: currentValue,
+        default: defaultValue,
         unit: unit as CSSUnit,
-        step,
+        step: range.step,
       };
     }
   }

@@ -70,7 +70,9 @@ export type CSSUnit =
   // Percentage
   | "%"
   // Flex
-  | "fr";
+  | "fr"
+  // Unit-less numeric values (e.g. line-height: 1.4)
+  | "";
 
 export interface SliderConfig {
   type: "slider";

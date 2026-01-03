@@ -225,6 +225,16 @@ Auto-detected sliders use these default ranges by unit type. Based on [MDN CSS n
 
 Ranges automatically expand if the current value is outside the defaults.
 
+### Color Detection
+
+Auto-detected color variables support:
+
+- Hex: `#rgb`, `#rrggbb`, `#rrggbbaa`
+- Functional: `rgb()`, `rgba()`, `hsl()`, `hsla()`
+- Named: standard CSS named colors (including `transparent` and `currentColor`)
+
+Note: newer color syntaxes (like `oklch()` / `color()`) aren’t currently auto-detected.
+
 ## API
 
 ### `slideVars.init(config?: SlideVarsConfig, options?: SlideVarsOptions)`
