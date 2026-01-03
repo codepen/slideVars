@@ -1,6 +1,9 @@
 import type { SlideVarsConfig, CSSUnit, AutoDetectDefaults } from "./types";
 
-const DEFAULT_SLIDER_RANGES: Record<string, { min: number; max: number; step?: number }> = {
+const DEFAULT_SLIDER_RANGES: Record<
+  string,
+  { min: number; max: number; step?: number }
+> = {
   // Unit-less numbers (e.g. line-height: 1.4)
   "": { min: 0, max: 5, step: 0.1 },
 
@@ -12,7 +15,7 @@ const DEFAULT_SLIDER_RANGES: Record<string, { min: number; max: number; step?: n
   pt: { min: 0, max: 100, step: 1 },
   pc: { min: 0, max: 50, step: 1 },
   Q: { min: 0, max: 1000, step: 1 },
-  
+
   // Font-relative length units
   em: { min: 0, max: 10, step: 0.1 },
   rem: { min: 0, max: 10, step: 0.1 },
@@ -26,7 +29,7 @@ const DEFAULT_SLIDER_RANGES: Record<string, { min: number; max: number; step?: n
   ric: { min: 0, max: 100, step: 1 },
   lh: { min: 0, max: 10, step: 0.1 },
   rlh: { min: 0, max: 10, step: 0.1 },
-  
+
   // Viewport-percentage lengths
   vw: { min: 0, max: 100, step: 1 },
   vh: { min: 0, max: 100, step: 1 },
@@ -52,7 +55,7 @@ const DEFAULT_SLIDER_RANGES: Record<string, { min: number; max: number; step?: n
   dvb: { min: 0, max: 100, step: 1 },
   dvmin: { min: 0, max: 100, step: 1 },
   dvmax: { min: 0, max: 100, step: 1 },
-  
+
   // Container query length units
   cqw: { min: 0, max: 100, step: 1 },
   cqh: { min: 0, max: 100, step: 1 },
@@ -60,30 +63,30 @@ const DEFAULT_SLIDER_RANGES: Record<string, { min: number; max: number; step?: n
   cqb: { min: 0, max: 100, step: 1 },
   cqmin: { min: 0, max: 100, step: 1 },
   cqmax: { min: 0, max: 100, step: 1 },
-  
+
   // Angle units
   deg: { min: 0, max: 360, step: 1 },
   grad: { min: 0, max: 400, step: 1 },
   rad: { min: 0, max: 6.28, step: 0.01 },
   turn: { min: 0, max: 1, step: 0.01 },
-  
+
   // Time units
   s: { min: 0, max: 10, step: 0.1 },
   ms: { min: 0, max: 5000, step: 50 },
-  
+
   // Frequency units
   Hz: { min: 0, max: 20000, step: 10 },
   kHz: { min: 0, max: 20, step: 0.1 },
-  
+
   // Resolution units
   dpi: { min: 72, max: 600, step: 1 },
   dpcm: { min: 28, max: 236, step: 1 },
   dppx: { min: 1, max: 4, step: 0.1 },
-  
+
   // Percentage
   "%": { min: 0, max: 100, step: 1 },
-  
-  // Flex
+
+  // Grid
   fr: { min: 0, max: 10, step: 0.1 },
 };
 
@@ -92,7 +95,7 @@ export function autoDetectVariables(
   customDefaults?: AutoDetectDefaults
 ): SlideVarsConfig {
   const config: SlideVarsConfig = {};
-  
+
   // Get the element to read variables from
   const element = document.querySelector(scope);
   if (!element) {
@@ -102,7 +105,7 @@ export function autoDetectVariables(
 
   // Get computed styles
   const computedStyles = window.getComputedStyle(element);
-  
+
   // Get all custom properties
   const customProps: string[] = [];
   for (let i = 0; i < computedStyles.length; i++) {
@@ -174,14 +177,12 @@ function detectValueType(
   if (numericMatch) {
     const [, numStr, unit] = numericMatch;
     const currentValue = parseFloat(numStr);
-    
+
     const range = sliderRanges[unit];
     if (range) {
       const min = 0;
       const max =
-        currentValue !== 0
-          ? Math.ceil(Math.abs(currentValue) * 10)
-          : range.max;
+        currentValue !== 0 ? Math.ceil(Math.abs(currentValue) * 10) : range.max;
       const defaultValue = Math.min(Math.max(currentValue, min), max);
 
       return {
@@ -217,35 +218,157 @@ function isColor(value: string): boolean {
 
   // Check for named colors
   const namedColors = [
-    "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque",
-    "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood",
-    "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk",
-    "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray",
-    "darkgrey", "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen",
-    "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen",
-    "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise",
-    "darkviolet", "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue",
-    "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro",
-    "ghostwhite", "gold", "goldenrod", "gray", "grey", "green", "greenyellow",
-    "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender",
-    "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral",
-    "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgrey", "lightgreen",
-    "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray",
-    "lightslategrey", "lightsteelblue", "lightyellow", "lime", "limegreen",
-    "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid",
-    "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen",
-    "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream",
-    "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive",
-    "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen",
-    "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink",
-    "plum", "powderblue", "purple", "rebeccapurple", "red", "rosybrown",
-    "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell",
-    "sienna", "silver", "skyblue", "slateblue", "slategray", "slategrey", "snow",
-    "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise",
-    "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen",
-    "transparent", "currentcolor"
+    "aliceblue",
+    "antiquewhite",
+    "aqua",
+    "aquamarine",
+    "azure",
+    "beige",
+    "bisque",
+    "black",
+    "blanchedalmond",
+    "blue",
+    "blueviolet",
+    "brown",
+    "burlywood",
+    "cadetblue",
+    "chartreuse",
+    "chocolate",
+    "coral",
+    "cornflowerblue",
+    "cornsilk",
+    "crimson",
+    "cyan",
+    "darkblue",
+    "darkcyan",
+    "darkgoldenrod",
+    "darkgray",
+    "darkgrey",
+    "darkgreen",
+    "darkkhaki",
+    "darkmagenta",
+    "darkolivegreen",
+    "darkorange",
+    "darkorchid",
+    "darkred",
+    "darksalmon",
+    "darkseagreen",
+    "darkslateblue",
+    "darkslategray",
+    "darkslategrey",
+    "darkturquoise",
+    "darkviolet",
+    "deeppink",
+    "deepskyblue",
+    "dimgray",
+    "dimgrey",
+    "dodgerblue",
+    "firebrick",
+    "floralwhite",
+    "forestgreen",
+    "fuchsia",
+    "gainsboro",
+    "ghostwhite",
+    "gold",
+    "goldenrod",
+    "gray",
+    "grey",
+    "green",
+    "greenyellow",
+    "honeydew",
+    "hotpink",
+    "indianred",
+    "indigo",
+    "ivory",
+    "khaki",
+    "lavender",
+    "lavenderblush",
+    "lawngreen",
+    "lemonchiffon",
+    "lightblue",
+    "lightcoral",
+    "lightcyan",
+    "lightgoldenrodyellow",
+    "lightgray",
+    "lightgrey",
+    "lightgreen",
+    "lightpink",
+    "lightsalmon",
+    "lightseagreen",
+    "lightskyblue",
+    "lightslategray",
+    "lightslategrey",
+    "lightsteelblue",
+    "lightyellow",
+    "lime",
+    "limegreen",
+    "linen",
+    "magenta",
+    "maroon",
+    "mediumaquamarine",
+    "mediumblue",
+    "mediumorchid",
+    "mediumpurple",
+    "mediumseagreen",
+    "mediumslateblue",
+    "mediumspringgreen",
+    "mediumturquoise",
+    "mediumvioletred",
+    "midnightblue",
+    "mintcream",
+    "mistyrose",
+    "moccasin",
+    "navajowhite",
+    "navy",
+    "oldlace",
+    "olive",
+    "olivedrab",
+    "orange",
+    "orangered",
+    "orchid",
+    "palegoldenrod",
+    "palegreen",
+    "paleturquoise",
+    "palevioletred",
+    "papayawhip",
+    "peachpuff",
+    "peru",
+    "pink",
+    "plum",
+    "powderblue",
+    "purple",
+    "rebeccapurple",
+    "red",
+    "rosybrown",
+    "royalblue",
+    "saddlebrown",
+    "salmon",
+    "sandybrown",
+    "seagreen",
+    "seashell",
+    "sienna",
+    "silver",
+    "skyblue",
+    "slateblue",
+    "slategray",
+    "slategrey",
+    "snow",
+    "springgreen",
+    "steelblue",
+    "tan",
+    "teal",
+    "thistle",
+    "tomato",
+    "turquoise",
+    "violet",
+    "wheat",
+    "white",
+    "whitesmoke",
+    "yellow",
+    "yellowgreen",
+    "transparent",
+    "currentcolor",
   ];
 
   return namedColors.includes(value.toLowerCase());
 }
-

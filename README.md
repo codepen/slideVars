@@ -2,10 +2,10 @@
 
 A TypeScript library that creates interactive UI controls for CSS custom properties (CSS variables). Provides sliders for numeric values and color pickers for colors, all rendered in a Shadow DOM web component. Built with Lit for reactive, declarative templates.
 
-**[Demo & Documentation](https://codepen.github.io/slideVars/)**
-**[Basic Usage Pen](https://codepen.io/chriscoyier/pen/raLxxRY)**
-**[GitHub](https://github.com/codepen/slideVars)**
-**[npm](https://www.npmjs.com/package/@codepen/slidevars)**
+- **[Demo & Documentation](https://codepen.github.io/slideVars/)**
+- **[Basic Usage Pen](https://codepen.io/chriscoyier/pen/raLxxRY)**
+- **[GitHub](https://github.com/codepen/slideVars)**
+- **[npm](https://www.npmjs.com/package/@codepen/slidevars)**
 
 ## Installation
 
