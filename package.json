@@ -11,7 +11,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "BUILD_MODE=library vite build",
+    "build:demo": "vite build",
     "example": "vite"
   },
   "dependencies": {

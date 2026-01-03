@@ -2,6 +2,8 @@
 
 A TypeScript library that creates interactive UI controls for CSS custom properties (CSS variables). Provides sliders for numeric values and color pickers for colors, all rendered in a Shadow DOM web component. Built with Lit for reactive, declarative templates.
 
+**[View Live Demo](https://codepen.github.io/sliderVars/)** 🎛️
+
 ## Installation
 
 ```bash
@@ -64,6 +66,8 @@ slideVars.init(
 );
 ```
 
+There are only `slider` and `color` types for now.
+
 ### Hybrid Approach
 
 Combine auto-detection with manual overrides:
@@ -89,7 +93,7 @@ This will inject a `<slide-vars>` web component into the `<body>` as a fixed-pos
 
 ## Development
 
-### Run the Demo
+### Run the Demo Locally
 
 To test the library with the interactive demo/documentation:
 
@@ -114,21 +118,13 @@ npm run build
 
 This uses Vite 7 with Rolldown (a fast Rust-based bundler) to create the distributable files in the `dist/` folder. All styles are bundled into the JavaScript output (no separate CSS file).
 
-## Technology Stack
+### Build the Demo Site
 
-- **Lit 3.2+** - Reactive web components with declarative templates (~5KB)
-- **TypeScript** - Full type safety
-- **Vite 7** - Fast bundler with Rolldown (Rust-based)
-- **Shadow DOM** - Encapsulated styles and markup
-- **Animated SVG Logo** - Custom `<slidevars-logo>` component with smooth transitions
+```bash
+npm run build:demo
+```
 
-### Why Lit?
-
-- 🪶 **Lightweight** - Only ~5KB gzipped
-- ⚡ **Fast** - Efficient reactive updates
-- 🎯 **Simple** - Declarative HTML templates
-- 🔧 **Standard** - Built on web components standards
-- 📦 **No Virtual DOM** - Direct DOM manipulation
+This builds the demo/documentation site to the `docs/` folder. The site is automatically deployed to GitHub Pages on every push to the main branch.
 
 ### Logo Component
 
@@ -136,34 +132,6 @@ Just for fuzies, the library includes a custom `<slidevars-logo>` component that
 
 ```html
 <slidevars-logo open="false"></slidevars-logo>
-```
-
-### Slider Configuration
-
-```javascript
-{
-  "--my-var": {
-    type: "slider",
-    min: 10,           // Required: minimum value
-    max: 100,          // Required: maximum value
-    default: 50,       // Optional: defaults to halfway between min/max
-    unit: "px",        // Required: CSS unit (px, rem, em, vw, vh, %, etc.)
-    scope: "#myEl",    // Optional: selector for where to apply the variable (defaults to body)
-    step: 1            // Optional: step increment (defaults to 1)
-  }
-}
-```
-
-### Color Configuration
-
-```javascript
-{
-  "--my-color": {
-    type: "color",
-    default: "red",    // Optional: any valid CSS color (defaults to #ff0000)
-    scope: "#myEl"     // Optional: selector for where to apply the variable (defaults to body)
-  }
-}
 ```
 
 ## Advanced Usage
@@ -180,18 +148,10 @@ By default, `slideVars.init()` creates and injects the `<slide-vars>` element au
 </slide-vars>
 ```
 
-```javascript
-import { slideVars } from "@codepen/slidevars";
-
-// init() will find and use the existing element
-slideVars.init();
-```
-
 This approach gives you:
 
 - **Custom positioning** - Place the element anywhere in your DOM structure
 - **Slotted content** - Add custom HTML that appears above the controls
-- **More control** - Style or manipulate the element as needed
 
 ### Programmatic Control
 
