@@ -4,6 +4,8 @@ A TypeScript library that creates interactive UI controls for CSS custom propert
 
 **[Demo & Documentation](https://codepen.github.io/slideVars/)**
 **[Basic Usage Pen](https://codepen.io/chriscoyier/pen/raLxxRY)**
+**[GitHub](https://github.com/codepen/slideVars)**
+**[npm](https://www.npmjs.com/package/@codepen/slidevars)**
 
 ## Installation
 
