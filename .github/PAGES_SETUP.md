@@ -17,7 +17,7 @@ To enable GitHub Pages for this repository, follow these steps:
 ## After Setup
 
 Once configured, the demo site will automatically deploy to:
-**https://codepen.github.io/sliderVars/**
+**https://codepen.github.io/slidevars/**
 
 Every push to the `main` branch will trigger a new deployment.
 
@@ -43,6 +43,6 @@ npx vite preview --outDir docs --port 3000
 ## Notes
 
 - The `docs/` folder is ignored by git (it's built by GitHub Actions)
-- The demo uses the base path `/sliderVars/` for GitHub Pages project page URLs
+- The demo uses the base path `/slidevars/` for GitHub Pages project page URLs
 - The library build (`npm run build`) is separate and outputs to `dist/`
 
