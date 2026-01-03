@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
 const isLibraryBuild = process.env.BUILD_MODE === "library";
 
 export default defineConfig({
-  base: isLibraryBuild ? "/" : "/slidevars/",
+  base: isLibraryBuild ? "/" : "/slideVars/",
   build: isLibraryBuild
     ? {
         // Library build configuration
