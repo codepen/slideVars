@@ -209,7 +209,7 @@ Auto-detected sliders use these default ranges by unit type. Based on [MDN CSS n
 
 **Length Units:**
 
-- Absolute: `px`, `cm`, `mm`, `in`, `pt`, `pc`, `Q`
+- Absolute: `px`, `cm`, `mm`, `in`, `pt`, `pc`, `q`
 - Font-relative: `em`, `rem`, `ex`, `rex`, `cap`, `rcap`, `ch`, `rch`, `ic`, `ric`, `lh`, `rlh`
 - Viewport: `vw`, `vh`, `vi`, `vb`, `vmin`, `vmax`, `svw`, `svh`, `svi`, `svb`, `lvw`, `lvh`, `dvw`, `dvh`, `dvi`, `dvb`
 - Container: `cqw`, `cqh`, `cqi`, `cqb`, `cqmin`, `cqmax`

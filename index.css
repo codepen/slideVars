@@ -68,6 +68,7 @@ h3 {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+  margin: 0 0 1rem 0;
 }
 
 .hero-logo {
@@ -85,7 +86,7 @@ h3 {
 
 .hero,
 .section {
-  padding: 4rem 2rem;
+  padding: 3rem;
   max-inline-size: 800px;
   margin: 0 auto 2rem;
 
@@ -195,6 +196,7 @@ syntax-highlight,
   display: block;
   white-space: pre-wrap;
   background: #1a1a1a;
+  border: 1px solid #454545;
   padding: 1.5rem;
   border-radius: 8px;
   overflow-x: auto;
@@ -223,7 +225,6 @@ code {
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.9em;
   font-weight: 500;
-  padding: 0.2em 0.4em;
   border-radius: 3px;
 }
 
@@ -283,4 +284,5 @@ th {
   height: 20px;
   vertical-align: top;
   margin-inline: 0.2rem;
+  margin-top: 2px;
 }
