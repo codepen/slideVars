@@ -80,7 +80,7 @@ export class SlideVarsElement extends LitElement {
   }
 
   private setCSSVariable(varName: string, value: string, scope?: string) {
-    const targetElement = scope ? document.querySelector(scope) : document.body;
+    const targetElement = scope ? document.querySelector(scope) : document.documentElement;
 
     if (targetElement) {
       (targetElement as HTMLElement).style.setProperty(varName, value);
