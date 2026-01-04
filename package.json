@@ -4,6 +4,7 @@
   "description": "UI to control your CSS custom properties",
   "license": "MIT",
   "author": "CodePen",
+  "readme": "README.md",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
