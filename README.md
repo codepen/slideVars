@@ -271,6 +271,10 @@ import {
 
 The difference here is the automatic detection and sole focus on CSS custom properties.
 
+## Third-Party
+
+- [Bookmarklet](https://codepen.io/cwacht/pen/yyJVazQ) by Chris Wachtman
+
 ## License
 
 MIT © CodePen
