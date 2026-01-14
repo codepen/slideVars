@@ -80,7 +80,9 @@ export class SlideVarsElement extends LitElement {
   }
 
   private setCSSVariable(varName: string, value: string, scope?: string) {
-    const targetElement = scope ? document.querySelector(scope) : document.documentElement;
+    const targetElement = scope
+      ? document.querySelector(scope)
+      : document.documentElement;
 
     if (targetElement) {
       (targetElement as HTMLElement).style.setProperty(varName, value);
@@ -164,6 +166,8 @@ export class SlideVarsElement extends LitElement {
   }
 
   render() {
+    const hasVariables = Object.keys(this.config).length > 0;
+
     return html`
       <button
         class="toggle-button"
@@ -176,9 +180,13 @@ export class SlideVarsElement extends LitElement {
       <div class="controls-panel ${this.isOpen ? "open" : ""}">
         <div class="controls">
           <slot></slot>
-          ${Object.entries(this.config).map(([varName, varConfig]) =>
-            this.renderControl(varName, varConfig)
-          )}
+          ${hasVariables
+            ? Object.entries(this.config).map(([varName, varConfig]) =>
+                this.renderControl(varName, varConfig)
+              )
+            : html`<p class="no-variables-warning">
+                No CSS custom properties detected.
+              </p>`}
         </div>
       </div>
     `;
