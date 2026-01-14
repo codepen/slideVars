@@ -1,7 +1,6 @@
 :host {
   display: block;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+  font-family: system-ui, sans-serif;
   position: fixed;
   top: 20px;
   right: 20px;
@@ -9,7 +8,6 @@
 
   --cp-color-green-hsl: 139.41deg 58.62% 54.51%;
   --cp-color-green: hsl(var(--cp-color-green-hsl));
-  /* --cp-color-green-light = #d3ffe1; */
 
   --cp-color-yellow-hsl: 49.32deg 100% 62.55%;
   --cp-color-yellow: hsl(var(--cp-color-yellow-hsl));
