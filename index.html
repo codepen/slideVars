@@ -103,6 +103,16 @@ slideVars.init(); // That's it!</syntax-highlight
           >
             Manual Configuration
           </button>
+          <button
+            class="tab-button"
+            data-tab="oklch"
+            role="tab"
+            aria-selected="false"
+            aria-controls="oklch-tab"
+            id="oklch-tab-button"
+          >
+            OKLCH Colors ✨
+          </button>
         </div>
 
         <!-- Auto Detection Tab -->
@@ -193,6 +203,56 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
 });</syntax-highlight>
           </div>
         </div>
+
+        <!-- OKLCH Colors Tab -->
+        <div
+          class="tab-content"
+          id="oklch-tab"
+          role="tabpanel"
+          aria-labelledby="oklch-tab-button"
+          hidden
+        >
+          <h3>OKLCH Color Space</h3>
+          <p>
+            SlideVars automatically detects modern color spaces like
+            <code>oklch()</code> and provides an advanced color picker with
+            support for all color spaces and gamut mapping!
+          </p>
+
+          <div class="demo-area">
+            <div class="oklch-demo" id="oklch-demo">OKLCH!</div>
+          </div>
+
+          <div class="code-block">
+            <pre class="live-css">/* Your CSS with OKLCH colors */ 
+#oklch-demo { 
+  --oklch-bg: <span class="live-value" data-var="--oklch-bg"></span>;
+  --oklch-text: <span class="live-value" data-var="--oklch-text"></span>;
+  --oklch-border: <span class="live-value" data-var="--oklch-border"></span>;
+}</pre>
+          </div>
+
+          <!-- prettier-ignore -->
+          <syntax-highlight language="js">/* Your JavaScript */
+import { slideVars } from "@codepen/slidevars";
+
+// OKLCH colors are auto-detected!
+slideVars.init({
+  auto: true,
+  scope: "#oklch-demo"
+});</syntax-highlight>
+
+          <p style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.8">
+            💡 <strong>Tip:</strong> The color picker automatically loads from
+            <a
+              href="https://github.com/argyleink/css-color-component"
+              target="_blank"
+              >hdr-color-input</a
+            >
+            when modern color spaces are detected. It supports oklch, oklab,
+            lch, lab, hwb, and color() functions.
+          </p>
+        </div>
       </section>
 
       <!-- Manual Placement -->
@@ -280,14 +340,18 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
             <code>rgba()</code>, <code>hsl()</code>, <code>hsla()</code>
           </li>
           <li>
+            <strong>Modern Color Spaces:</strong> <code>oklch()</code>,
+            <code>oklab()</code>, <code>lch()</code>, <code>lab()</code>,
+            <code>hwb()</code>, <code>color()</code>
+            <span style="font-size: 0.9em; opacity: 0.8"
+              >✨ Uses advanced color picker with gamut mapping</span
+            >
+          </li>
+          <li>
             <strong>Named:</strong> standard CSS named colors (including
             <code>transparent</code> and <code>currentColor</code>)
           </li>
         </ul>
-        <p>
-          Note: newer color syntaxes (like <code>oklch()</code> /
-          <code>color()</code>) aren’t currently auto-detected.
-        </p>
       </section>
 
       <section class="section">

@@ -191,6 +191,26 @@ h3 {
   font-weight: bold;
 }
 
+#oklch-demo {
+  --oklch-bg: oklch(75% 0.15 270);
+  --oklch-text: oklch(95% 0.05 270);
+  --oklch-border: oklch(45% 0.2 270);
+
+  width: 200px;
+  height: 200px;
+  background: var(--oklch-bg);
+  color: var(--oklch-text);
+  border: 8px solid var(--oklch-border);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
 syntax-highlight,
 .live-css,
 .install-command {
