@@ -54,15 +54,6 @@ function switchDemo(tab) {
         auto: true,
       }
     );
-  } else if (tab === "oklch") {
-    // OKLCH color demo with auto-detection
-    slideVars.init(
-      {},
-      {
-        auto: true,
-        scope: "#oklch-demo",
-      }
-    );
   } else {
     // Manual configuration demo
     slideVars.init({
@@ -111,12 +102,6 @@ function updateLiveValues() {
     if (varName) {
       // Try to read from the appropriate scope
       let value = "";
-
-      // Check if variable is in oklch demo
-      const oklchDemo = document.getElementById("oklch-demo");
-      if (oklchDemo && varName.includes("oklch")) {
-        value = getComputedStyle(oklchDemo).getPropertyValue(varName).trim();
-      }
 
       // Check if variable is in manual demo
       if (!value) {
