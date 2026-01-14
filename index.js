@@ -23,8 +23,10 @@ document.querySelectorAll(".tab-button").forEach((button) => {
     activeTab.classList.add("active");
     activeTab.removeAttribute("hidden");
 
-    // Switch demo
-    switchDemo(tab);
+    // Switch demo after a small delay to ensure DOM is updated
+    requestAnimationFrame(() => {
+      setTimeout(() => switchDemo(tab), 10);
+    });
   });
 });
 
@@ -94,13 +96,28 @@ switchDemo("auto");
 // Update live CSS values
 function updateLiveValues() {
   const liveValues = document.querySelectorAll(".live-value");
-  // Read from body since that's where the component sets variables
-  const styles = getComputedStyle(document.body);
 
   liveValues.forEach((span) => {
     const varName = span.dataset.var;
     if (varName) {
-      const value = styles.getPropertyValue(varName).trim();
+      // Try to read from the appropriate scope
+      let value = "";
+
+      // Check if variable is in manual demo
+      if (!value) {
+        const manualDemo = document.getElementById("manual-demo");
+        if (manualDemo) {
+          value = getComputedStyle(manualDemo).getPropertyValue(varName).trim();
+        }
+      }
+
+      // Fall back to :root / body
+      if (!value) {
+        value = getComputedStyle(document.documentElement)
+          .getPropertyValue(varName)
+          .trim();
+      }
+
       span.textContent = value || "inherit";
     }
   });

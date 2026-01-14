@@ -103,6 +103,8 @@ export function autoDetectVariables(
     return config;
   }
 
+  console.log(`slideVars: Auto-detecting variables from "${scope}"`);
+
   // Get computed styles
   const computedStyles = window.getComputedStyle(element);
 
@@ -128,6 +130,7 @@ export function autoDetectVariables(
 
     const detected = detectValueType(value, propName, sliderRanges);
     if (detected) {
+      console.log(`  Found: ${propName} = ${value}`, detected);
       config[propName] = {
         ...detected,
         scope: scope !== ":root" ? scope : undefined,
@@ -135,6 +138,7 @@ export function autoDetectVariables(
     }
   });
 
+  console.log(`slideVars: Detected ${Object.keys(config).length} variables`);
   return config;
 }
 
@@ -144,10 +148,12 @@ function detectValueType(
   sliderRanges: Record<string, { min: number; max: number; step?: number }>
 ): SlideVarsConfig[string] | null {
   // Try to detect color
-  if (isColor(value)) {
+  const colorInfo = isColor(value);
+  if (colorInfo.isColor) {
     return {
       type: "color",
       default: value,
+      colorSpace: colorInfo.isModern ? "modern" : "standard",
     };
   }
 
@@ -203,20 +209,32 @@ function detectValueType(
   return null;
 }
 
-function isColor(value: string): boolean {
+function isColor(value: string): { isColor: boolean; isModern: boolean } {
+  // Check for modern color spaces (oklch, oklab, lch, lab, hwb, color())
+  if (
+    /^oklch\(/i.test(value) ||
+    /^oklab\(/i.test(value) ||
+    /^lch\(/i.test(value) ||
+    /^lab\(/i.test(value) ||
+    /^hwb\(/i.test(value) ||
+    /^color\(/i.test(value)
+  ) {
+    return { isColor: true, isModern: true };
+  }
+
   // Check for hex colors
   if (/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(value)) {
-    return true;
+    return { isColor: true, isModern: false };
   }
 
   // Check for rgb/rgba
   if (/^rgba?\(/.test(value)) {
-    return true;
+    return { isColor: true, isModern: false };
   }
 
   // Check for hsl/hsla
   if (/^hsla?\(/.test(value)) {
-    return true;
+    return { isColor: true, isModern: false };
   }
 
   // Check for named colors
@@ -373,5 +391,9 @@ function isColor(value: string): boolean {
     "currentcolor",
   ];
 
-  return namedColors.includes(value.toLowerCase());
+  if (namedColors.includes(value.toLowerCase())) {
+    return { isColor: true, isModern: false };
+  }
+
+  return { isColor: false, isModern: false };
 }

@@ -37,7 +37,7 @@ slideVars.init(); // That's it! Auto-detects all CSS variables
 SlideVars will:
 
 - Scan `:root` for all CSS custom properties
-- Detect colors (hex, rgb, hsl, named colors) → create color pickers
+- Detect colors (hex, rgb, hsl, oklch, oklab, lch, lab, hwb, color(), and named colors) → create appropriate color pickers
 - Detect values with units (px, rem, em, %, etc.) → create sliders with smart defaults
 - Skip values it can't understand
 
@@ -231,11 +231,14 @@ Ranges automatically expand if the current value is outside the defaults.
 
 Auto-detected color variables support:
 
-- Hex: `#rgb`, `#rrggbb`, `#rrggbbaa`
-- Functional: `rgb()`, `rgba()`, `hsl()`, `hsla()`
-- Named: standard CSS named colors (including `transparent` and `currentColor`)
+- **Standard colors**: Hex (`#rgb`, `#rrggbb`, `#rrggbbaa`), `rgb()`, `rgba()`, `hsl()`, `hsla()`, and CSS named colors (including `transparent` and `currentColor`)
+- **Modern color spaces** ✨: `oklch()`, `oklab()`, `lch()`, `lab()`, `hwb()`, `color()`
 
-Note: newer color syntaxes (like `oklch()` / `color()`) aren’t currently auto-detected.
+Modern color spaces automatically use the advanced [`<color-input>`](https://github.com/argyleink/css-color-component/) web component, which provides:
+- Support for all CSS color spaces including HDR colors
+- Visual color space representation
+- Automatic gamut mapping
+- Alpha channel support
 
 ## API
 

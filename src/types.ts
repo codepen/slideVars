@@ -88,6 +88,7 @@ export interface ColorConfig {
   type: "color";
   default?: string;
   scope?: string;
+  colorSpace?: "standard" | "modern"; // standard uses native input[type=color], modern uses <color-input>
 }
 
 export type VarConfig = SliderConfig | ColorConfig;

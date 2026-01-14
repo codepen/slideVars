@@ -5,6 +5,7 @@
   --rotation: 0deg;
   --shadow-size: 10px;
   --line-height: 1.5;
+  --highlight-color: oklch(0.8896 0.197 97.72);
 }
 
 * {
@@ -197,7 +198,7 @@ syntax-highlight,
   display: block;
   white-space: pre-wrap;
   background: #1a1a1a;
-  border: 1px solid #454545;
+  border: 1px solid var(--highlight-color);
   padding: 1.5rem;
   border-radius: 8px;
   overflow-x: auto;
