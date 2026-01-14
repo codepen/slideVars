@@ -105,11 +105,10 @@ npm install
 npm run example
 ```
 
-This will start a dev server at `http://localhost:3000` with a comprehensive single-page demo that includes:
+This will start a dev server at `http://localhost:3000` with the demo page that includes:
 
 - **Live Demo** - Interactive examples with tabs for auto-detection and manual configuration
-- **Full Documentation** - Installation, API reference, and usage examples
-- **Feature Showcase** - See all features in action
+- **Documentation** - Installation, API reference, and usage examples
 
 The dev server supports hot reloading, so changes to the source files will update automatically.
 
@@ -119,7 +118,7 @@ The dev server supports hot reloading, so changes to the source files will updat
 npm run build
 ```
 
-This uses Vite 7 with Rolldown (a fast Rust-based bundler) to create the distributable files in the `dist/` folder. All styles are bundled into the JavaScript output (no separate CSS file).
+This uses Vite 7 with Rolldown to create the distributable files in the `dist/` folder. All styles are bundled into the JavaScript output (no separate CSS file).
 
 ### Build the Demo Site
 
@@ -264,6 +263,13 @@ import {
   ColorConfig,
 } from "@codepen/slidevars";
 ```
+
+## Prior Art
+
+- [Knobs](https://github.com/yairEO/knobs) by Yair Even Or
+- [dat.gui](https://github.com/dataarts/dat.gui) by dataarts
+
+The difference here is the automatic detection and sole focus on CSS custom properties.
 
 ## License
 
