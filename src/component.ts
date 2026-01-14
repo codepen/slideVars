@@ -199,6 +199,7 @@ export class SlideVarsElement extends LitElement {
               <span class="current-value">${currentValue}</span>
             </div>
             <color-input
+              class="modern-color-picker"
               value="${varConfig.default || "oklch(75% 0.1 180)"}"
               @change="${(e: Event) =>
                 this.handleModernColorChange(varName, varConfig, e)}"
