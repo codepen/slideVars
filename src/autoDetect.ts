@@ -128,7 +128,10 @@ export function autoDetectVariables(
 
     const detected = detectValueType(value, propName, sliderRanges);
     if (detected) {
-      config[propName] = detected;
+      config[propName] = {
+        ...detected,
+        scope: scope !== ":root" ? scope : undefined,
+      };
     }
   });
 
