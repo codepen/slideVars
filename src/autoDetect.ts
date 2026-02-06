@@ -90,6 +90,65 @@ const DEFAULT_SLIDER_RANGES: Record<
   fr: { min: 0, max: 10, step: 0.1 },
 };
 
+/**
+ * Walk all stylesheets and collect custom property names in source order
+ * (order of first occurrence in CSS that applies to the element).
+ */
+function getSourceOrderedCustomProps(element: Element): string[] {
+  const sourceOrder: string[] = [];
+  const seen = new Set<string>();
+
+  function parseDeclarations(cssText: string): void {
+    const start = cssText.indexOf("{");
+    const end = cssText.lastIndexOf("}");
+    if (start === -1 || end === -1) return;
+    const block = cssText.slice(start + 1, end);
+    for (const m of block.matchAll(/(--[^:]+)\s*:/g)) {
+      const name = m[1].trim();
+      if (!seen.has(name)) {
+        seen.add(name);
+        sourceOrder.push(name);
+      }
+    }
+  }
+
+  function processRule(rule: CSSRule): void {
+    if (rule instanceof CSSStyleRule) {
+      try {
+        if (element.matches(rule.selectorText)) {
+          parseDeclarations(rule.cssText);
+        }
+      } catch {
+        // Invalid selector or matches() not supported
+      }
+      return;
+    }
+    if (rule instanceof CSSMediaRule || rule instanceof CSSSupportsRule) {
+      for (let i = 0; i < rule.cssRules.length; i++) {
+        processRule(rule.cssRules[i]);
+      }
+    }
+  }
+
+  try {
+    for (const sheet of document.styleSheets) {
+      try {
+        const rules = sheet.cssRules ?? (sheet as CSSStyleSheet).rules;
+        if (!rules) continue;
+        for (let i = 0; i < rules.length; i++) {
+          processRule(rules[i]);
+        }
+      } catch {
+        // CORS or access denied – skip this stylesheet
+      }
+    }
+  } catch {
+    // styleSheets not accessible
+  }
+
+  return sourceOrder;
+}
+
 export function autoDetectVariables(
   scope: string = ":root",
   customDefaults?: AutoDetectDefaults
@@ -103,19 +162,28 @@ export function autoDetectVariables(
     return config;
   }
 
-  console.log(`slideVars: Auto-detecting variables from "${scope}"`);
-
   // Get computed styles
   const computedStyles = window.getComputedStyle(element);
 
-  // Get all custom properties
-  const customProps: string[] = [];
+  // Get all custom properties (from computed style)
+  const computedCustomProps: string[] = [];
   for (let i = 0; i < computedStyles.length; i++) {
     const prop = computedStyles[i];
     if (prop.startsWith("--")) {
-      customProps.push(prop);
+      computedCustomProps.push(prop);
     }
   }
+
+  // Sort by source order so the UI shows variables in the same order as in the CSS
+  const sourceOrder = getSourceOrderedCustomProps(element);
+  const customProps = [...computedCustomProps].sort((a, b) => {
+    const ia = sourceOrder.indexOf(a);
+    const ib = sourceOrder.indexOf(b);
+    if (ia === -1 && ib === -1) return 0;
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
 
   // Merge custom defaults with built-in defaults
   const sliderRanges = {
