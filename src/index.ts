@@ -30,7 +30,7 @@ class SlideVars {
     // Auto-detect if enabled or if config is empty
     let finalConfig = config;
     if (options.auto || Object.keys(config).length === 0) {
-      const autoConfig = autoDetectVariables(options.scope);
+      const autoConfig = autoDetectVariables(options.scope, undefined, options);
       // Merge auto-detected with manual config (manual config takes precedence)
       finalConfig = { ...autoConfig, ...config };
     }

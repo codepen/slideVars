@@ -1,4 +1,9 @@
-import type { SlideVarsConfig, CSSUnit, AutoDetectDefaults } from "./types";
+import type {
+  SlideVarsConfig,
+  CSSUnit,
+  AutoDetectDefaults,
+  SlideVarsOptions,
+} from "./types";
 
 const DEFAULT_SLIDER_RANGES: Record<
   string,
@@ -151,7 +156,8 @@ function getSourceOrderedCustomProps(element: Element): string[] {
 
 export function autoDetectVariables(
   scope: string = ":root",
-  customDefaults?: AutoDetectDefaults
+  customDefaults?: AutoDetectDefaults,
+  options?: Pick<SlideVarsOptions, "filterVariables">
 ): SlideVarsConfig {
   const config: SlideVarsConfig = {};
 
@@ -176,7 +182,7 @@ export function autoDetectVariables(
 
   // Sort by source order so the UI shows variables in the same order as in the CSS
   const sourceOrder = getSourceOrderedCustomProps(element);
-  const customProps = [...computedCustomProps].sort((a, b) => {
+  let customProps = [...computedCustomProps].sort((a, b) => {
     const ia = sourceOrder.indexOf(a);
     const ib = sourceOrder.indexOf(b);
     if (ia === -1 && ib === -1) return 0;
@@ -184,6 +190,19 @@ export function autoDetectVariables(
     if (ib === -1) return -1;
     return ia - ib;
   });
+
+  const filterPrefixes = options?.filterVariables;
+  if (filterPrefixes?.length) {
+    const prefixes = (Array.isArray(filterPrefixes)
+      ? filterPrefixes
+      : [filterPrefixes]
+    ).filter(Boolean);
+    if (prefixes.length) {
+      customProps = customProps.filter(
+        (name) => !prefixes.some((prefix) => name.startsWith(prefix))
+      );
+    }
+  }
 
   // Merge custom defaults with built-in defaults
   const sliderRanges = {
@@ -206,7 +225,6 @@ export function autoDetectVariables(
     }
   });
 
-  console.log(`slideVars: Detected ${Object.keys(config).length} variables`);
   return config;
 }
 
