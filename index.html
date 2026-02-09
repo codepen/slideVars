@@ -169,26 +169,10 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
     unit: "px", 
     scope: "#manual-demo"
   }, 
-  "--height": {
-    type: "slider", 
-    min: 50, 
-    max: 400, 
-    default: 100, 
-    unit: "px", 
-    scope: "#manual-demo"
-  }, 
   "--bg": { 
     type: "color", 
     default: "#667eea", 
     scope: "#manual-demo"
-  },
-  "--radius": { 
-    type: "slider",
-    min: 0, 
-    max: 200, 
-    default: 0, 
-    unit: "px", 
-    scope: "#manual-demo" 
   }
 });</syntax-highlight>
           </div>
@@ -197,7 +181,8 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
 
       <!-- Manual Placement -->
       <section class="section">
-        <h2>Advanced: Manual Placement</h2>
+        <h2>Advanced</h2>
+        <h3>Manual Placement</h3>
         <p>
           You can manually place the
           <code>&lt;slide-vars&gt;</code>
@@ -211,6 +196,20 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
           <syntax-highlight language="html">&lt;slide-vars&gt;
   &lt;p&gt;Welcome to the fun zone.&lt;/p&gt;
 &lt;/slide-vars&gt;</syntax-highlight>
+        </div>
+
+        <h3>Options</h3>
+        <p>The second parameter to `init()` accepts options:</p>
+        <div class="code-block">
+          <!-- prettier-ignore -->
+          <syntax-highlight language="js">slideVars.init({
+  /* Manual custom property config, see above. */
+}, {
+  defaultOpen: false, // Optional: set to true to show controls on load
+  auto: false, // Optional: do automatic detection of custom properties, combining with manual config (manual config takes precedence)
+  scope: "#manual-demo", // Optional: select a specific element to read ALL variables from. Individual scope set on specific custom properties takes precedence.
+  filterVariables: ["--arc-"], // Optional: exclude variables with specific prefixes from auto-detection
+});</syntax-highlight>
         </div>
       </section>
 
@@ -295,28 +294,8 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
       </section>
 
       <section class="section">
-        <h2>API Reference</h2>
+        <h2>Programmatic Control</h3>
 
-        <h3><code>slideVars.init(config?, options?)</code></h3>
-        <p>Initialize the component with optional configuration.</p>
-
-        <h4>Options:</h4>
-        <ul>
-          <li>
-            <code>defaultOpen</code>: boolean - Whether controls are open on
-            load (default: false)
-          </li>
-          <li>
-            <code>auto</code>: boolean - Enable auto-detection (default: true if
-            config is empty)
-          </li>
-          <li>
-            <code>scope</code>: string - CSS selector to read variables from
-            (default: ":root")
-          </li>
-        </ul>
-
-        <h3>Programmatic Control</h3>
         <div class="code-block">
           <!-- prettier-ignore -->
           <syntax-highlight language="js"

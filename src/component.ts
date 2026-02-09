@@ -173,7 +173,7 @@ export class SlideVarsElement extends LitElement {
           : (varConfig.min + varConfig.max) / 2;
 
       return html`
-        <div class="control-group">
+        <div class="control-group control-group--slider">
           <div class="control-header">
             <label class="var-name">${varName}</label>
             <span class="current-value">${currentValue}</span>
@@ -193,7 +193,7 @@ export class SlideVarsElement extends LitElement {
       // Use <color-input> for modern color spaces (oklch, lab, etc.)
       if (varConfig.colorSpace === "modern" && this.colorInputLoaded) {
         return html`
-          <div class="control-group">
+          <div class="control-group control-group--color control-group--color-modern">
             <div class="control-header">
               <label class="var-name">${varName}</label>
               <span class="current-value">${currentValue}</span>
@@ -212,7 +212,7 @@ export class SlideVarsElement extends LitElement {
       const defaultValue = this.normalizeColor(varConfig.default || "#ff0000");
 
       return html`
-        <div class="control-group">
+        <div class="control-group control-group--color control-group--color-standard">
           <div class="control-header">
             <label class="var-name">${varName}</label>
             <span class="current-value">${currentValue}</span>

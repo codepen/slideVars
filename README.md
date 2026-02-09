@@ -65,6 +65,9 @@ slideVars.init(
   },
   {
     defaultOpen: false, // Optional: set to true to show controls on load
+    auto: false, // Optional: do automatic detection of custom properties, combining with manual config (manual config takes precedence)
+    scope: "#manual-demo", // Optional: select a specific element to read ALL variables from. Individual scope set on specific custom properties takes precedence.
+    filterVariables: ["--arc-"], // Optional: exclude variables with specific prefixes from auto-detection
   }
 );
 ```
@@ -183,6 +186,7 @@ interface SlideVarsOptions {
   defaultOpen?: boolean; // Whether controls are open on load (default: false)
   auto?: boolean; // Enable auto-detection (default: true if config is empty)
   scope?: string; // Selector to read variables from (default: ":root")
+  filterVariables?: string | string[]; // Variable name prefixes to exclude from auto-detection (e.g. `"--arc-"` or `["--arc-", "--other-"]`)
 }
 ```
 
@@ -235,6 +239,7 @@ Auto-detected color variables support:
 - **Modern color spaces** ✨: `oklch()`, `oklab()`, `lch()`, `lab()`, `hwb()`, `color()`
 
 Modern color spaces automatically use the advanced [`<color-input>`](https://github.com/argyleink/css-color-component/) web component, which provides:
+
 - Support for all CSS color spaces including HDR colors
 - Visual color space representation
 - Automatic gamut mapping

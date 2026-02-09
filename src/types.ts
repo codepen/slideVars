@@ -97,6 +97,8 @@ export interface SlideVarsOptions {
   defaultOpen?: boolean;
   auto?: boolean; // Auto-detect CSS variables from :root
   scope?: string; // Selector to read CSS variables from (defaults to ":root")
+  /** Variable name prefixes to exclude from auto-detection (e.g. `"--arc-"` or `["--arc-", "--other-"]`) */
+  filterVariables?: string | string[];
 }
 
 export interface SlideVarsConfig {
