@@ -193,9 +193,8 @@ export function autoDetectVariables(
 
   const filterPrefixes = options?.filterVariables;
   if (filterPrefixes?.length) {
-    const prefixes = (Array.isArray(filterPrefixes)
-      ? filterPrefixes
-      : [filterPrefixes]
+    const prefixes = (
+      Array.isArray(filterPrefixes) ? filterPrefixes : [filterPrefixes]
     ).filter(Boolean);
     if (prefixes.length) {
       customProps = customProps.filter(
@@ -217,7 +216,6 @@ export function autoDetectVariables(
 
     const detected = detectValueType(value, propName, sliderRanges);
     if (detected) {
-      console.log(`  Found: ${propName} = ${value}`, detected);
       config[propName] = {
         ...detected,
         scope: scope !== ":root" ? scope : undefined,

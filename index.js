@@ -53,7 +53,6 @@ function switchDemo(tab) {
       {
         auto: true,
         filterVariables: ["--arc-"],
-        defaultOpen: true,
       }
     );
   } else {
