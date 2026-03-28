@@ -58,21 +58,23 @@ function switchDemo(tab) {
   } else {
     // Manual configuration demo
     slideVars.init({
-      "--width": {
-        type: "slider",
-        min: 50,
-        max: 400,
-        default: 100,
-        unit: "px",
-        scope: "#manual-demo",
-      },
-      "--height": {
-        type: "slider",
-        min: 50,
-        max: 400,
-        default: 100,
-        unit: "px",
-        scope: "#manual-demo",
+      Size: {
+        "--width": {
+          type: "slider",
+          min: 50,
+          max: 400,
+          default: 100,
+          unit: "px",
+          scope: "#manual-demo",
+        },
+        "--height": {
+          type: "slider",
+          min: 50,
+          max: 400,
+          default: 100,
+          unit: "px",
+          scope: "#manual-demo",
+        },
       },
       "--bg": {
         type: "color",

@@ -74,6 +74,37 @@ slideVars.init(
 
 There are only `slider` and `color` types for now.
 
+You can also group manual variables under a label key (any key that does not start with `--`).
+Groups are displayed as bordered sections in the UI, making it easier to organize related controls.
+
+```javascript
+slideVars.init({
+  Size: {
+    "--width": {
+      type: "slider",
+      min: 50,
+      max: 400,
+      default: 100,
+      unit: "px",
+      scope: "#manual-demo",
+    },
+    "--height": {
+      type: "slider",
+      min: 50,
+      max: 400,
+      default: 100,
+      unit: "px",
+      scope: "#manual-demo",
+    },
+  },
+  "--bg": {
+    type: "color",
+    default: "#667eea",
+    scope: "#manual-demo",
+  },
+});
+```
+
 ### Hybrid Approach
 
 Combine auto-detection with manual overrides:
@@ -247,7 +278,7 @@ Modern color spaces automatically use the advanced [`<color-input>`](https://git
 
 ## API
 
-### `slideVars.init(config?: SlideVarsConfig, options?: SlideVarsOptions)`
+### `slideVars.init(config?: SlideVarsInitConfig, options?: SlideVarsOptions)`
 
 Initialize the component. If `config` is empty or omitted, auto-detects CSS variables from `:root`.
 
@@ -266,6 +297,7 @@ This library is written in TypeScript and includes full type definitions. Import
 ```typescript
 import {
   slideVars,
+  SlideVarsInitConfig,
   SlideVarsConfig,
   SliderConfig,
   ColorConfig,
