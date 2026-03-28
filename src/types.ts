@@ -105,6 +105,29 @@ export interface SlideVarsConfig {
   [varName: string]: VarConfig;
 }
 
+export interface SlideVarsConfigGroup {
+  [varName: string]: VarConfig;
+}
+
+export interface SlideVarsInitConfig {
+  [key: string]: VarConfig | SlideVarsConfigGroup;
+}
+
+export interface SlideVarsVarSection {
+  type: "var";
+  varName: string;
+}
+
+export interface SlideVarsGroupSection {
+  type: "group";
+  groupName: string;
+  varNames: string[];
+}
+
+export type SlideVarsRenderSection =
+  | SlideVarsVarSection
+  | SlideVarsGroupSection;
+
 export interface AutoDetectDefaults {
   sliderRanges?: {
     [unit: string]: { min: number; max: number; step?: number };

@@ -3,10 +3,72 @@ import "./logo";
 import { SlideVarsElement } from "./component";
 import { SlideVarsLogo } from "./logo";
 import { autoDetectVariables } from "./autoDetect";
-import type { SlideVarsConfig, SlideVarsOptions } from "./types";
+import type {
+  SlideVarsConfig,
+  SlideVarsConfigGroup,
+  SlideVarsInitConfig,
+  SlideVarsOptions,
+  SlideVarsRenderSection,
+  VarConfig,
+} from "./types";
 
 export * from "./types";
 export { SlideVarsElement, SlideVarsLogo };
+
+function isVarConfig(value: unknown): value is VarConfig {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as { type?: unknown };
+  return candidate.type === "slider" || candidate.type === "color";
+}
+
+function isConfigGroup(value: unknown): value is SlideVarsConfigGroup {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const entries = Object.entries(value);
+  if (entries.length === 0) {
+    return false;
+  }
+
+  return entries.every(
+    ([varName, varConfig]) => varName.startsWith("--") && isVarConfig(varConfig)
+  );
+}
+
+function normalizeManualConfig(config: SlideVarsInitConfig): {
+  flatConfig: SlideVarsConfig;
+  renderSections: SlideVarsRenderSection[];
+} {
+  const flatConfig: SlideVarsConfig = {};
+  const renderSections: SlideVarsRenderSection[] = [];
+
+  Object.entries(config).forEach(([key, value]) => {
+    if (key.startsWith("--")) {
+      if (isVarConfig(value)) {
+        flatConfig[key] = value;
+        renderSections.push({ type: "var", varName: key });
+      }
+      return;
+    }
+
+    if (!isConfigGroup(value)) {
+      return;
+    }
+
+    const varNames = Object.keys(value);
+    varNames.forEach((varName) => {
+      flatConfig[varName] = value[varName];
+    });
+
+    renderSections.push({ type: "group", groupName: key, varNames });
+  });
+
+  return { flatConfig, renderSections };
+}
 
 class SlideVars {
   private element: SlideVarsElement | null = null;
@@ -17,7 +79,7 @@ class SlideVars {
    *                 Pass an empty object {} or omit to auto-detect from :root
    * @param options - Optional configuration for the component behavior
    */
-  init(config: SlideVarsConfig = {}, options: SlideVarsOptions = {}): void {
+  init(config: SlideVarsInitConfig = {}, options: SlideVarsOptions = {}): void {
     // Remove existing managed element if it exists and we created it
     if (
       this.element &&
@@ -27,12 +89,24 @@ class SlideVars {
       this.element.parentNode.removeChild(this.element);
     }
 
+    const { flatConfig: manualConfig, renderSections: manualRenderSections } =
+      normalizeManualConfig(config);
+    let renderSections = manualRenderSections;
+
     // Auto-detect if enabled or if config is empty
-    let finalConfig = config;
-    if (options.auto || Object.keys(config).length === 0) {
+    let finalConfig = manualConfig;
+    if (options.auto || Object.keys(manualConfig).length === 0) {
       const autoConfig = autoDetectVariables(options.scope, undefined, options);
       // Merge auto-detected with manual config (manual config takes precedence)
-      finalConfig = { ...autoConfig, ...config };
+      finalConfig = { ...autoConfig, ...manualConfig };
+
+      const autoRenderSections: SlideVarsRenderSection[] = Object.keys(
+        autoConfig
+      )
+        .filter((varName) => !(varName in manualConfig))
+        .map((varName) => ({ type: "var", varName }));
+
+      renderSections = [...autoRenderSections, ...manualRenderSections];
     }
 
     // Check if user has manually placed a <slide-vars> element in their HTML
@@ -44,11 +118,19 @@ class SlideVars {
       // Use the existing element (preserves slotted content)
       this.element = existingElement;
       this.element.setAttribute("data-manual", "true");
-      this.element.setConfig(finalConfig, options.defaultOpen ?? false);
+      this.element.setConfig(
+        finalConfig,
+        options.defaultOpen ?? false,
+        renderSections
+      );
     } else {
       // Create and inject the custom element
       this.element = new SlideVarsElement();
-      this.element.setConfig(finalConfig, options.defaultOpen ?? false);
+      this.element.setConfig(
+        finalConfig,
+        options.defaultOpen ?? false,
+        renderSections
+      );
 
       // Wait for DOM to be ready
       if (document.body) {

@@ -98,6 +98,23 @@
 .control-group {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+
+  &::before {
+    content: attr(data-group);
+    font-weight: 600;
+    color: #333;
+    font-family: "Monaco", "Courier New", monospace;
+    font-size: 1rem;    
+  }
+}
+
+.control-container {
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
   position: relative;
 }
@@ -121,7 +138,7 @@
   font-size: 0.85rem;
   font-family: "Monaco", "Courier New", monospace;
 
-  .control-group--color-modern & {
+  .control-container--color-modern & {
     position: absolute;
     bottom: 7px;
     z-index: 1;

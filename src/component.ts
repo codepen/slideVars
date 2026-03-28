@@ -1,6 +1,11 @@
 import { LitElement, html, css, unsafeCSS } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import type { SlideVarsConfig, SliderConfig, ColorConfig } from "./types";
+import type {
+  SlideVarsConfig,
+  SliderConfig,
+  ColorConfig,
+  SlideVarsRenderSection,
+} from "./types";
 import styles from "./component.css?inline";
 import "./logo";
 
@@ -8,6 +13,9 @@ import "./logo";
 export class SlideVarsElement extends LitElement {
   @property({ type: Object })
   config: SlideVarsConfig = {};
+
+  @property({ attribute: false })
+  renderSections: SlideVarsRenderSection[] = [];
 
   @state()
   private isOpen: boolean = false;
@@ -48,8 +56,16 @@ export class SlideVarsElement extends LitElement {
     document.head.appendChild(script);
   }
 
-  setConfig(config: SlideVarsConfig, defaultOpen: boolean = false) {
+  setConfig(
+    config: SlideVarsConfig,
+    defaultOpen: boolean = false,
+    renderSections: SlideVarsRenderSection[] = []
+  ) {
     this.config = config;
+    this.renderSections =
+      renderSections.length > 0
+        ? renderSections
+        : Object.keys(config).map((varName) => ({ type: "var", varName }));
     this.isOpen = defaultOpen;
     this.initializeValues();
   }
@@ -173,7 +189,7 @@ export class SlideVarsElement extends LitElement {
           : (varConfig.min + varConfig.max) / 2;
 
       return html`
-        <div class="control-group control-group--slider">
+        <div class="control-container control-container--slider">
           <div class="control-header">
             <label class="var-name">${varName}</label>
             <span class="current-value">${currentValue}</span>
@@ -193,7 +209,7 @@ export class SlideVarsElement extends LitElement {
       // Use <color-input> for modern color spaces (oklch, lab, etc.)
       if (varConfig.colorSpace === "modern" && this.colorInputLoaded) {
         return html`
-          <div class="control-group control-group--color control-group--color-modern">
+          <div class="control-container control-container--color control-container--color-modern">
             <div class="control-header">
               <label class="var-name">${varName}</label>
               <span class="current-value">${currentValue}</span>
@@ -212,7 +228,7 @@ export class SlideVarsElement extends LitElement {
       const defaultValue = this.normalizeColor(varConfig.default || "#ff0000");
 
       return html`
-        <div class="control-group control-group--color control-group--color-standard">
+        <div class="control-container control-container--color control-container--color-standard">
           <div class="control-header">
             <label class="var-name">${varName}</label>
             <span class="current-value">${currentValue}</span>
@@ -246,9 +262,25 @@ export class SlideVarsElement extends LitElement {
         <div class="controls">
           <slot></slot>
           ${hasVariables
-            ? Object.entries(this.config).map(([varName, varConfig]) =>
-                this.renderControl(varName, varConfig)
-              )
+            ? this.renderSections.map((section) => {
+                if (section.type === "group") {
+                  return html`
+                    <div class="control-group" data-group="${section.groupName}">
+                      ${section.varNames.map((varName) => {
+                        const varConfig = this.config[varName];
+                        return varConfig
+                          ? this.renderControl(varName, varConfig)
+                          : null;
+                      })}
+                    </div>
+                  `;
+                }
+
+                const varConfig = this.config[section.varName];
+                return varConfig
+                  ? this.renderControl(section.varName, varConfig)
+                  : null;
+              })
             : html`<p class="no-variables-warning">
                 No CSS custom properties detected.
               </p>`}

@@ -176,6 +176,31 @@ slideVars.init(); // Auto-detects all variables!</syntax-highlight>
   }
 });</syntax-highlight>
           </div>
+          
+          <p>
+            You can group related variables under custom headings. Groups are displayed as bordered sections in the UI, making it easier to manage multiple controls.
+          </p>
+
+          <div class="code-block">
+            <!-- prettier-ignore -->
+            <syntax-highlight language="js">slideVars.init({ 
+  "Size": {
+    "--width": { 
+      type: "slider", 
+      ...
+    },
+    "--height": { 
+      type: "slider", 
+      ...
+    }
+  },
+  "--bg": { 
+    type: "color", 
+    default: "#667eea", 
+    scope: "#manual-demo"
+  }
+});</syntax-highlight>
+          </div>
         </div>
       </section>
 
