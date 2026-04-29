@@ -91,7 +91,6 @@ export class SlideVarsElement extends LitElement {
             : (varConfig.min + varConfig.max) / 2;
         const value = `${defaultValue}${varConfig.unit}`;
         this.values.set(varName, value);
-        this.setCSSVariable(varName, value, varConfig.scope);
       } else if (varConfig.type === "color") {
         // For modern colors, use the value as-is; for standard colors, provide a hex fallback
         const value =
@@ -100,7 +99,6 @@ export class SlideVarsElement extends LitElement {
             ? "oklch(75% 0.1 180)"
             : "#ff0000");
         this.values.set(varName, value);
-        this.setCSSVariable(varName, value, varConfig.scope);
       }
     });
   }
