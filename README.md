@@ -39,6 +39,7 @@ SlideVars will:
 - Scan `:root` for all CSS custom properties
 - Detect colors (hex, rgb, hsl, oklch, oklab, lch, lab, hwb, color(), and named colors) → create appropriate color pickers
 - Detect values with units (px, rem, em, %, etc.) → create sliders with smart defaults
+- Read current values to seed the controls, but only write inline custom properties after a user changes a control
 - Skip values it can't understand
 
 ### Manual Configuration
